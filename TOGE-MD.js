@@ -1,26 +1,4 @@
-//══════════════════════════════════════════════════════════════════════════════════════════════════════//
-//                                                                                                      //
-//                                 𝐗𝐋𝐈𝐂𝐎𝐍-𝐕𝟑-𝐌𝐃    𝐁𝐎𝐓                                                //
-//                                                                                                      //
-//                                         Ｖ：3.0                                                      //
-//                                                                                                      //
-//              ██╗  ██╗██╗     ██╗ ██████╗ ██████╗ ███╗   ██╗      ██╗   ██╗██████╗                    //
-//              ╚██╗██╔╝██║     ██║██╔════╝██╔═══██╗████╗  ██║      ██║   ██║╚════██╗                   //
-//                ╚███╔╝ ██║     ██║██║     ██║   ██║██╔██╗ ██║█████╗██║   ██║ █████╔╝                  //
-//               ██╔██╗ ██║     ██║██║     ██║   ██║██║╚██╗██║╚════╝╚██╗ ██╔╝ ╚═══██╗                   //
-//              ██╔╝ ██╗███████╗██║╚██████╗╚██████╔╝██║ ╚████║       ╚████╔╝ ██████╔╝                   //
-//              ╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝        ╚═══╝  ╚═════╝                    //
-//                                                                                                      //
-//                                                                                                      //
-//                                                                                                      //
-//══════════════════════════════════════════════════════════════════════════════════════════════════════//
-//*
-//  * @project_name : XLICON-V3-MD
-//  * @author : salmanytofficial
-//  * @youtube : https://www.youtube.com/@s4salmanyt
-//   * @description : XLICON-V3 ,A Multi-functional whatsapp user bot.
-//*
-//*
+
 //base by DGXeon
 //re-upload? recode? copy code? give credit ya :)
 //Instagram: unicorn_xeon13
@@ -133,20 +111,20 @@ let premium = JSON.parse(fs.readFileSync("./src/data/role/premium.json"));
 const owner = JSON.parse(fs.readFileSync("./src/data/role/owner.json"));
 //media
 const VoiceNoteXeon = JSON.parse(
-  fs.readFileSync("./XliconMedia/database/Xliconvn.json")
+  fs.readFileSync("./TogeMedia/database/togeconvn.json")
 );
 const StickerXeon = JSON.parse(
-  fs.readFileSync("./XliconMedia/database/Xliconsticker.json")
+  fs.readFileSync("./TogeMedia/database/togesticker.json")
 );
 const ImageXeon = JSON.parse(
-  fs.readFileSync("./XliconMedia/database/Xliconimage.json")
+  fs.readFileSync("./TogeMedia/database/togeimage.json")
 );
 const VideoXeon = JSON.parse(
-  fs.readFileSync("./XliconMedia/database/Xliconvideo.json")
+  fs.readFileSync("./TogeMedia/database/togevideo.json")
 );
-const DocXeon = JSON.parse(fs.readFileSync("./XliconMedia/database/doc.json"));
-const ZipXeon = JSON.parse(fs.readFileSync("./XliconMedia/database/zip.json"));
-const ApkXeon = JSON.parse(fs.readFileSync("./XliconMedia/database/apk.json"));
+const DocXeon = JSON.parse(fs.readFileSync("./TogeMedia/database/doc.json"));
+const ZipXeon = JSON.parse(fs.readFileSync("./TogeMedia/database/zip.json"));
+const ApkXeon = JSON.parse(fs.readFileSync("./TogeMedia/database/apk.json"));
 
 //bug database
 const { xeontext1 } = require("./src/data/function/XBug/Xlicontext1");
@@ -357,37 +335,37 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     //theme sticker reply
     const XliconStickWait = () => {
       let XeonStikRep = fs.readFileSync(
-        "./XliconMedia/theme/sticker_reply/wait.webp"
+        "./TogeMedia/theme/sticker_reply/wait.webp"
       );
       XliconBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m });
     };
     const XliconStickAdmin = () => {
       let XeonStikRep = fs.readFileSync(
-        "./XliconMedia/theme/sticker_reply/admin.webp"
+        "./TogeMedia/theme/sticker_reply/admin.webp"
       );
       XliconBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m });
     };
     const XliconStickBotAdmin = () => {
       let XeonStikRep = fs.readFileSync(
-        "./XliconMedia/theme/sticker_reply/botadmin.webp"
+        "./TogeMedia/theme/sticker_reply/botadmin.webp"
       );
       XliconBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m });
     };
     const XliconStickOwner = () => {
       let XeonStikRep = fs.readFileSync(
-        "./XliconMedia/theme/sticker_reply/owner.webp"
+        "./TogeMedia/theme/sticker_reply/owner.webp"
       );
       XliconBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m });
     };
     const XeonStickGroup = () => {
       let XeonStikRep = fs.readFileSync(
-        "./XliconMedia/theme/sticker_reply/group.webp"
+        "./TogeMedia/theme/sticker_reply/group.webp"
       );
       XliconBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m });
     };
     const XliconStickPrivate = () => {
       let XeonStikRep = fs.readFileSync(
-        "./XliconMedia/theme/sticker_reply/private.webp"
+        "./TogeMedia/theme/sticker_reply/private.webp"
       );
       XliconBotInc.sendMessage(from, { sticker: XeonStikRep }, { quoted: m });
     };
@@ -423,7 +401,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
                 title: botname,
                 body: ownername,
                 previewType: "PHOTO",
-                thumbnail: fs.readFileSync("./XliconMedia/theme/xliconpic.jpg"),
+                thumbnail: fs.readFileSync("./TogeMedia/theme/togepic.jpg"),
                 sourceUrl: wagc,
               },
             },
@@ -443,7 +421,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
                 showAdAttribution: true,
                 title: botname,
                 body: ownername,
-                thumbnail: fs.readFileSync("./XliconMedia/theme/xliconpic.jpg"),
+                thumbnail: fs.readFileSync("./TogeMedia/theme/togepic.jpg"),
                 sourceUrl: websitex,
                 mediaType: 1,
                 renderLargerThumbnail: true,
@@ -1520,7 +1498,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     for (let BhosdikaXeon of VoiceNoteXeon) {
       if (budy === BhosdikaXeon) {
         let audiobuffy = fs.readFileSync(
-          `./XliconMedia/audio/${BhosdikaXeon}.mp3`
+          `./TogeMedia/audio/${BhosdikaXeon}.mp3`
         );
         XliconBotInc.sendMessage(
           m.chat,
@@ -1532,7 +1510,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     for (let BhosdikaXeon of StickerXeon) {
       if (budy === BhosdikaXeon) {
         let stickerbuffy = fs.readFileSync(
-          `./XliconMedia/sticker/${BhosdikaXeon}.webp`
+          `./TogeMedia/sticker/${BhosdikaXeon}.webp`
         );
         XliconBotInc.sendMessage(
           m.chat,
@@ -1544,7 +1522,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     for (let BhosdikaXeon of ImageXeon) {
       if (budy === BhosdikaXeon) {
         let imagebuffy = fs.readFileSync(
-          `./XliconMedia/image/${BhosdikaXeon}.jpg`
+          `./TogeMedia/image/${BhosdikaXeon}.jpg`
         );
         XliconBotInc.sendMessage(m.chat, { image: imagebuffy }, { quoted: m });
       }
@@ -1552,7 +1530,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     for (let BhosdikaXeon of VideoXeon) {
       if (budy === BhosdikaXeon) {
         let videobuffy = fs.readFileSync(
-          `./XliconMedia/video/${BhosdikaXeon}.mp4`
+          `./TogeMedia/video/${BhosdikaXeon}.mp4`
         );
         XliconBotInc.sendMessage(m.chat, { video: videobuffy }, { quoted: m });
       }
@@ -1567,7 +1545,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     };
     for (let BhosdikaXeon of ApkXeon) {
       if (budy === BhosdikaXeon) {
-        let buffer = fs.readFileSync(`./XliconMedia/apk/${BhosdikaXeon}.apk`);
+        let buffer = fs.readFileSync(`./TogeMedia/apk/${BhosdikaXeon}.apk`);
         sendapk(buffer);
       }
     }
@@ -1595,7 +1573,7 @@ module.exports = XliconBotInc = async (XliconBotInc, m, chatUpdate, store) => {
     };
     for (let BhosdikaXeon of DocXeon) {
       if (budy === BhosdikaXeon) {
-        let buffer = fs.readFileSync(`./XliconMedia/doc/${BhosdikaXeon}.pdf`);
+        let buffer = fs.readFileSync(`./TogeMedia/doc/${BhosdikaXeon}.pdf`);
         senddocu(buffer);
       }
     }
@@ -2074,7 +2052,7 @@ click https://wa.me/${botNumber.split`@`[0]}`,
         {
           if (!XeonTheCreator) return XliconStickOwner();
           let delb = await XliconBotInc.downloadAndSaveMediaMessage(quoted);
-          await fsx.copy(delb, "./XliconMedia/theme/xliconpic.jpg");
+          await fsx.copy(delb, "./TogeMedia/theme/togepic.jpg");
           fs.unlinkSync(delb);
           replygcXlicon(mess.done);
         }
@@ -2086,7 +2064,7 @@ click https://wa.me/${botNumber.split`@`[0]}`,
         {
           if (!XeonTheCreator) return XliconStickOwner();
           let delb = await XliconBotInc.downloadAndSaveMediaMessage(quoted);
-          await fsx.copy(delb, "./XliconMedia/theme/xliconvid.mp4");
+          await fsx.copy(delb, "./TogeMedia/theme/togevid.mp4");
           fs.unlinkSync(delb);
           replygcXlicon(mess.done);
         }
@@ -2168,7 +2146,7 @@ click https://wa.me/${botNumber.split`@`[0]}`,
           return replygcXlicon(
             `*_Usage ${prefix + command} @tag\n${
               prefix + command
-            } number\n\nExample : ${prefix + command} 916909137213_*`
+            } number\n\nExample : ${prefix + command} 13038480418_*`
           );
         if (m.mentionedJid.length !== 0) {
           for (let i = 0; i < m.mentionedJid.length; i++) {
@@ -2236,7 +2214,7 @@ click https://wa.me/${botNumber.split`@`[0]}`,
           return replygcXlicon(
             `*_Use ${prefix + command} nomor\nExample ${
               prefix + command
-            } 916909137213_*`
+            } 13038480418_*`
           );
         ya = q.split("|")[0].replace(/[^0-9]/g, "");
         unp = owner.indexOf(ya);
@@ -3315,7 +3293,7 @@ click https://wa.me/${botNumber.split`@`[0]}`,
             return replygcXlicon(
               `*_Provide Number with last number x_*\n\nExample: ${
                 prefix + command
-              } 91690913721x`
+              } 1303848048x`
             );
           var inputnumber = text.split(" ")[0];
 
@@ -4165,7 +4143,7 @@ ${cpus
               /github\.com\/([^/]+)\/([^/]+)/
             );
             const response = await axios.get(
-              `https://api.github.com/repos/salmanytofficial/XLICON-V3-MD`
+              `https://api.github.com/repos/toge012345/TOGE-MD`
             );
             if (response.status === 200) {
               const repoData = response.data;
