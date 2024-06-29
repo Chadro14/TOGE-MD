@@ -3,8 +3,8 @@
   "version": "3.0.5",
   "description": "TOGE-MD, A modular advanced wabot",
   "logo": "",
-  "keywords": ["whatsapp", "bot", "md", "multi-device", "Xlicon", "Xlicon-MD", "wabot", "termux-bot", "sc-bot"],
-  "repository": "https://github.com/salmanytofficial/XLICON-V3-MD",
+  "keywords": ["whatsapp", "bot", "md", "multi-device", "TOGE", "TOGE-MD", "wabot", "termux-bot", "sc-bot"],
+  "repository": "https://github.com/toge012345/TOGE-MD",
   "stack": "container",
   "env": {
     "SUDO": {
