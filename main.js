@@ -230,7 +230,7 @@ XeonLft = await getBuffer(ppuser)
    │✑ ${xmembers}th
    │✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
    │✑ ${xtime} ${xdate}
-   │   *TOGE-MD*
+   │   ᴛᴏɢᴇ ɪɴᴜᴍᴀᴋɪ
    └───────────────┈ ⳹`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
@@ -259,7 +259,7 @@ XeonBotInc.sendMessage(anu.id,
    │✑ ${xeonmembers}th
    │✑  𝗧𝗶𝗺𝗲 : 
    │✑  ${xeontime} ${xeondate}
-   │.   *TOGE-MD*
+   │   ᴛᴏɢᴇ ɪɴᴜᴍᴀᴋɪ
    └───────────────┈ ⳹`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
