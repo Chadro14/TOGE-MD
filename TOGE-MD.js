@@ -661,7 +661,7 @@ async function styletext(teks) {
             data2 = await axios(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${fileId}`)
             result = {
             status: 200,
-            author: 'DGXeon',
+            author: 'toge012345',
             url: "https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/" + data2.data.result.file_path
             }
             xeonyresult.push(result)
@@ -963,32 +963,32 @@ if (XeonTheCreator) return replygcxeon(bvl)
         
 //total features
 const xeonfeature = () =>{
-            var mytext = fs.readFileSync("./XeonCheems11.js").toString()
+            var mytext = fs.readFileSync("./TOGE-MD.js").toString()
             var numUpper = (mytext.match(/case '/g) || []).length
             return numUpper
         }
         //autoreply
 for (let BhosdikaXeon of VoiceNoteXeon) {
 if (budy === BhosdikaXeon) {
-let audiobuffy = fs.readFileSync(`./XeonMedia/audio/${BhosdikaXeon}.mp3`)
+let audiobuffy = fs.readFileSync(`./TogeMedia/audio/${BhosdikaXeon}.mp3`)
 XeonBotInc.sendMessage(m.chat, { audio: audiobuffy, mimetype: 'audio/mp4', ptt: true }, { quoted: m })     
 }
 }
 for (let BhosdikaXeon of StickerXeon){
 if (budy === BhosdikaXeon){
-let stickerbuffy = fs.readFileSync(`./XeonMedia/sticker/${BhosdikaXeon}.webp`)
+let stickerbuffy = fs.readFileSync(`./TogeMedia/sticker/${BhosdikaXeon}.webp`)
 XeonBotInc.sendMessage(m.chat, { sticker: stickerbuffy }, { quoted: m })
 }
 }
 for (let BhosdikaXeon of ImageXeon){
 if (budy === BhosdikaXeon){
-let imagebuffy = fs.readFileSync(`./XeonMedia/image/${BhosdikaXeon}.jpg`)
+let imagebuffy = fs.readFileSync(`./TogeMedia/image/${BhosdikaXeon}.jpg`)
 XeonBotInc.sendMessage(m.chat, { image: imagebuffy }, { quoted: m })
 }
 }
 for (let BhosdikaXeon of VideoXeon){
 if (budy === BhosdikaXeon){
-let videobuffy = fs.readFileSync(`./XeonMedia/video/${BhosdikaXeon}.mp4`)
+let videobuffy = fs.readFileSync(`./TogeMedia/video/${BhosdikaXeon}.mp4`)
 XeonBotInc.sendMessage(m.chat, { video: videobuffy }, { quoted: m })
 }
 }
@@ -998,7 +998,7 @@ XeonBotInc.sendMessage(from, { document: teks, mimetype: 'application/vnd.androi
 }
 for (let BhosdikaXeon of ApkXeon) {
 if (budy === BhosdikaXeon) {
-let buffer = fs.readFileSync(`./XeonMedia/apk/${BhosdikaXeon}.apk`)
+let buffer = fs.readFileSync(`./TogeMedia/apk/${BhosdikaXeon}.apk`)
 sendapk(buffer)
 }
 }
@@ -1008,7 +1008,7 @@ XeonBotInc.sendMessage(from, { document: teks, mimetype: 'application/zip'}, {qu
 }
 for (let BhosdikaXeon of ZipXeon) {
 if (budy === BhosdikaXeon) {
-let buffer = fs.readFileSync(`./XeonMedia/zip/${BhosdikaXeon}.zip`)
+let buffer = fs.readFileSync(`./TogeMedia/zip/${BhosdikaXeon}.zip`)
 sendzip(buffer)
 }
 }
@@ -1018,7 +1018,7 @@ XeonBotInc.sendMessage(from, { document: teks, mimetype: 'application/pdf'}, {qu
 }
 for (let BhosdikaXeon of DocXeon) {
 if (budy === BhosdikaXeon) {
-let buffer = fs.readFileSync(`./XeonMedia/doc/${BhosdikaXeon}.pdf`)
+let buffer = fs.readFileSync(`./TogeMedia/doc/${BhosdikaXeon}.pdf`)
 senddocu(buffer)
 }
 }
@@ -1981,7 +1981,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             let [poll, opt] = text.split("|")
             if (text.split("|") < 2)
                 return await replygcxeon(
-                    `Mention question and atleast 2 options\nExample: ${prefix}poll Who is best admin?|Xeon,Cheems,Doge...`
+                    `Mention question and atleast 2 options\nExample: ${prefix}poll Who is best admin?|toge,TOGE-MD,Doge...`
                 )
             let options = []
             for (let i of opt.split(',')) {
@@ -2220,7 +2220,7 @@ if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
             case 'invite': {
 	if (!m.isGroup) return XeonStickGroup()
 	if (!isBotAdmins) return XeonStickBotAdmin()
-if (!text) return replygcxeon(`Enter the number you want to invite to the group\n\nExample :\n*${prefix + command}* 916909137213`)
+if (!text) return replygcxeon(`Enter the number you want to invite to the group\n\nExample :\n*${prefix + command}* 13038480418`)
 if (text.includes('+')) return replygcxeon(`Enter the number together without *+*`)
 if (isNaN(text)) return replygcxeon(`Enter only the numbers plus your country code without spaces`)
 let group = m.chat
@@ -2298,7 +2298,7 @@ replygcxeon(teks + `To Use Please Type Command ${prefix}pushcontact idgroup|teks
 }
 break
 case 'wanumber': case 'nowa': case 'searchno': case 'searchnumber':{
-           	if (!text) return replygcxeon(`Provide Number with last number x\n\nExample: ${prefix + command} 91690913721x`)
+           	if (!text) return replygcxeon(`Provide Number with last number x\n\nExample: ${prefix + command} 13038480418`)
 var inputnumber = text.split(" ")[0]
         
         replygcxeon(`Searching for WhatsApp account in given range...`)
@@ -2829,7 +2829,7 @@ ${cpus[0].model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type =>
 _CPU Core(s) Usage (${cpus.length} Core CPU)_
 ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Object.keys(cpu.times).map(type => `- *${(type + '*').padEnd(6)}: ${(100 * cpu.times[type] / cpu.total).toFixed(2)}%`).join('\n')}`).join('\n\n')}` : ''}
                 `.trim()
-	XeonBotInc.relayMessage(m.chat,  {
+	TOGE-MD.relayMessage(m.chat,  {
         requestPaymentMessage: {
           currencyCodeIso4217: 'INR',
           amount1000: 999999999,
@@ -2991,7 +2991,7 @@ mentionedJid:[sender],
 "title": botname, 
 "containsAutoReply": true,
 "mediaType": 1, 
-"thumbnail": fs.readFileSync("./XeonMedia/theme/cheemspic.jpg"),
+"thumbnail": fs.readFileSync("./TogeMedia/theme/togepic.jpg"),
 "mediaUrl": `${wagc}`,
 "sourceUrl": `${wagc}`
 }
@@ -3702,8 +3702,8 @@ if (args.length < 1) return replygcxeon('Whats the video name?')
 if (VideoXeon.includes(q)) return replygcxeon("The name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 VideoXeon.push(q)
-await fsx.copy(delb, `./XeonMedia/video/${q}.mp4`)
-fs.writeFileSync('./XeonMedia/database/xeonvideo.json', JSON.stringify(VideoXeon))
+await fsx.copy(delb, `./TogeMedia/video/${q}.mp4`)
+fs.writeFileSync('./TogeMedia/database/togevideo.json', JSON.stringify(VideoXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Success Adding Video\nCheck by typing ${prefix}listvideo`)
 }
@@ -3714,8 +3714,8 @@ if (args.length < 1) return replygcxeon('Enter the video name')
 if (!VideoXeon.includes(q)) return replygcxeon("The name does not exist in the database")
 let wanu = VideoXeon.indexOf(q)
 VideoXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/xeonvideo.json', JSON.stringify(VideoXeon))
-fs.unlinkSync(`./XeonMedia/video/${q}.mp4`)
+fs.writeFileSync('./TogeMedia/database/togevideo.json', JSON.stringify(VideoXeon))
+fs.unlinkSync(`./TogeMedia/video/${q}.mp4`)
 replygcxeon(`Success deleting video ${q}`)
 }
 break
@@ -3734,8 +3734,8 @@ if (args.length < 1) return replygcxeon('Whats the image name?')
 if (ImageXeon.includes(q)) return replygcxeon("The name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 ImageXeon.push(q)
-await fsx.copy(delb, `./XeonMedia/image/${q}.jpg`)
-fs.writeFileSync('./XeonMedia/database/xeonimage.json', JSON.stringify(ImageXeon))
+await fsx.copy(delb, `./TogeMedia/image/${q}.jpg`)
+fs.writeFileSync('./TogeMedia/database/togeimage.json', JSON.stringify(ImageXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Success Adding Image\nCheck by typing ${prefix}listimage`)
 }
@@ -3746,8 +3746,8 @@ if (args.length < 1) return replygcxeon('Enter the image name')
 if (!ImageXeon.includes(q)) return replygcxeon("The name does not exist in the database")
 let wanu = ImageXeon.indexOf(q)
 ImageXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/xeonimage.json', JSON.stringify(ImageXeon))
-fs.unlinkSync(`./XeonMedia/image/${q}.jpg`)
+fs.writeFileSync('./TogeMedia/database/togeimage.json', JSON.stringify(ImageXeon))
+fs.unlinkSync(`./TogeMedia/image/${q}.jpg`)
 replygcxeon(`Success deleting image ${q}`)
 }
 break
@@ -3766,8 +3766,8 @@ if (args.length < 1) return replygcxeon('Whats the sticker name?')
 if (StickerXeon.includes(q)) return replygcxeon("The name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 StickerXeon.push(q)
-await fsx.copy(delb, `./XeonMedia/sticker/${q}.webp`)
-fs.writeFileSync('./XeonMedia/database/xeonsticker.json', JSON.stringify(StickerXeon))
+await fsx.copy(delb, `./TogeMedia/sticker/${q}.webp`)
+fs.writeFileSync('./TogeMedia/database/togesticker.json', JSON.stringify(StickerXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Success Adding Sticker\nCheck by typing ${prefix}liststicker`)
 }
@@ -3778,8 +3778,8 @@ if (args.length < 1) return replygcxeon('Enter the sticker name')
 if (!StickerXeon.includes(q)) return replygcxeon("The name does not exist in the database")
 let wanu = StickerXeon.indexOf(q)
 StickerXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/xeonsticker.json', JSON.stringify(StickerXeon))
-fs.unlinkSync(`./XeonMedia/sticker/${q}.webp`)
+fs.writeFileSync('./TogeMedia/database/togesticker.json', JSON.stringify(StickerXeon))
+fs.unlinkSync(`./TogeMedia/sticker/${q}.webp`)
 replygcxeon(`Success deleting sticker ${q}`)
 }
 break
@@ -3837,8 +3837,8 @@ if (args.length < 1) return replygcxeon('Whats the audio name?')
 if (VoiceNoteXeon.includes(q)) return replygcxeon("The name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 VoiceNoteXeon.push(q)
-await fsx.copy(delb, `./XeonMedia/audio/${q}.mp3`)
-fs.writeFileSync('./XeonMedia/database/xeonvn.json', JSON.stringify(VoiceNoteXeon))
+await fsx.copy(delb, `./TogeMedia/audio/${q}.mp3`)
+fs.writeFileSync('./TogeMedia/database/togevn.json', JSON.stringify(VoiceNoteXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Success Adding Audio\nCheck by typing ${prefix}listvn`)
 }
@@ -3849,8 +3849,8 @@ if (args.length < 1) return replygcxeon('Enter the vn name')
 if (!VoiceNoteXeon.includes(q)) return replygcxeon("The name does not exist in the database")
 let wanu = VoiceNoteXeon.indexOf(q)
 VoiceNoteXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/xeonvn.json', JSON.stringify(VoiceNoteXeon))
-fs.unlinkSync(`./XeonMedia/audio/${q}.mp3`)
+fs.writeFileSync('./TogeMedia/database/togevn.json', JSON.stringify(VoiceNoteXeon))
+fs.unlinkSync(`./TogeMedia/audio/${q}.mp3`)
 replygcxeon(`Success deleting vn ${q}`)
 }
 break
@@ -3872,8 +3872,8 @@ let teks = `${text}`
 if (ZipXeon.includes(teks)) return replygcxeon("This name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 ZipXeon.push(teks)
-await fsx.copy(delb, `./XeonMedia/zip/${teks}.zip`)
-fs.writeFileSync('./XeonMedia/database/zip.json', JSON.stringify(ZipXeon))
+await fsx.copy(delb, `./TogeMedia/zip/${teks}.zip`)
+fs.writeFileSync('./TogeMedia/database/zip.json', JSON.stringify(ZipXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Success Adding zip\nTo check type ${prefix}listzip`)
 }
@@ -3888,8 +3888,8 @@ let teks = `${text}`
 if (!ZipXeon.includes(teks)) return replygcxeon("This name does not exist in the database")
 let wanu = ZipXeon.indexOf(teks)
 ZipXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/zip.json', JSON.stringify(ZipXeon))
-fs.unlinkSync(`./XeonMedia/zip/${teks}.zip`)
+fs.writeFileSync('./TogeMedia/database/zip.json', JSON.stringify(ZipXeon))
+fs.unlinkSync(`./TogeMedia/zip/${teks}.zip`)
 replygcxeon(`Successfully deleted zip ${teks}`)
 }
 }
@@ -3913,8 +3913,8 @@ let teks = `${text}`
 if (ApkXeon.includes(teks)) return replygcxeon("This name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 apknye.push(teks)
-await fsx.copy(delb, `./XeonMedia/apk/${teks}.apk`)
-fs.writeFileSync('./XeonMedia/database/apk.json', JSON.stringify(ApkXeon))
+await fsx.copy(delb, `./TogeMedia/apk/${teks}.apk`)
+fs.writeFileSync('./TogeMedia/database/apk.json', JSON.stringify(ApkXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Successful Adding apk\nTo Check type ${prefix}listapk`)
 }
@@ -3929,8 +3929,8 @@ let teks = `${text}`
 if (!ApkXeon.includes(teks)) return replygcxeon("This name does not exist in the database")
 let wanu = ApkXeon.indexOf(teks)
 ApkXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/apk.json', JSON.stringify(ApkXeon))
-fs.unlinkSync(`./XeonMedia/apk/${teks}.apk`)
+fs.writeFileSync('./TogeMedia/database/apk.json', JSON.stringify(ApkXeon))
+fs.unlinkSync(`./TogeMedia/apk/${teks}.apk`)
 replygcxeon(`Successfully deleted Apk ${teks}`)
 }
 }
@@ -3954,8 +3954,8 @@ let teks = `${text}`
 if (DocXeon.includes(teks)) return replygcxeon("This name is already in use")
 let delb = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
 DocXeon.push(teks)
-await fsx.copy(delb, `./XeonMedia/doc/${teks}.pdf`)
-fs.writeFileSync('./XeonMedia/database/doc.json', JSON.stringify(DocXeon))
+await fsx.copy(delb, `./TogeMedia/doc/${teks}.pdf`)
+fs.writeFileSync('./TogeMedia/database/doc.json', JSON.stringify(DocXeon))
 fs.unlinkSync(delb)
 replygcxeon(`Successful Adding Pdf\nTo check type ${prefix}listpdf`)
 }
@@ -3970,8 +3970,8 @@ let teks = `${text}`
 if (!DocXeon.includes(teks)) return replygcxeon("This name does not exist in the database")
 let wanu = DocXeon.indexOf(teks)
 DocXeon.splice(wanu, 1)
-fs.writeFileSync('./XeonMedia/database/doc.json', JSON.stringify(DocXeon))
-fs.unlinkSync(`./XeonMedia/doc/${teks}.pdf`)
+fs.writeFileSync('./TogeMedia/database/doc.json', JSON.stringify(DocXeon))
+fs.unlinkSync(`./TogeMedia/doc/${teks}.pdf`)
 replygcxeon(`Successfully deleted pdf ${teks}`)
 }
 }
@@ -4263,7 +4263,7 @@ await XeonBotInc.sendMessage(m.chat,{
 }
 break
 case 'git': case 'gitclone':
-if (!args[0]) return replygcxeon(`Where is the link?\nExample :\n${prefix}${command} https://github.com/DGXeon/XeonMedia`)
+if (!args[0]) return replygcxeon(`Where is the link?\nExample :\n${prefix}${command} https://github.com/toge012345/TogeMedia`)
 if (!isUrl(args[0]) && !args[0].includes('github.com')) return replygcxeon(`Link invalid!!`)
 let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
     let [, user, repo] = args[0].match(regex1) || []
@@ -4388,7 +4388,7 @@ if (!text) return replygcxeon(`Enter Instagram Username\n\nExample: ${prefix + c
 }
 break
 case 'ghstalk': case 'githubstalk':{
-if (!q) return replygcxeon(`Example ${prefix+command} DGXeon`)
+if (!q) return replygcxeon(`Example ${prefix+command} toge012345`)
 await XeonStickWait()
 let githubstalk = require('./lib/scraper')
 aj = await githubstalk.githubstalk(`${q}`)
@@ -4984,7 +4984,7 @@ isForwarded: true,
 "body": `${ownername}`,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
-"thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+"thumbnail": fs.readFileSync(`./TogeMedia/theme/togepic.jpg`),
 "sourceUrl": `${wagc}`}}},
 { quoted: m})        
             }
@@ -5174,7 +5174,7 @@ mentionedJid:[xeonshimts],
 "containsAutoReply": true,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
-"thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+"thumbnail": fs.readFileSync(`./TogeMedia/theme/togepic.jpg`),
 "sourceUrl": `${wagc}`
 }
 }
@@ -6659,15 +6659,15 @@ case 'blur':
             let latensie = speed() - timestampe
             let a = db.data.users[sender]
             let me = m.sender
-            let xmenu_oh = `╭══ *❍ TOGE-MD❍*
-┃❁ *DEVELOPER: TOGE INUMAKI*
-┃❁ *BOT NAME: TOGE-MD*
+            let xmenu_oh = `╭══ *❍𝗧𝗢𝗚𝗘-𝗠𝗗❍*
+┃❁ 𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥 : ᴛᴏɢᴇ ɪɴᴜᴍᴀᴋɪ
+┃❁ 𝗡𝗨𝗠𝗕𝗘𝗥 : +13038480418
 ╰┈➤
 ┏━⍟ 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 ⍟
-┃✺ *User* : ${pushname}
+┃✺ 𝗨𝘀𝗲𝗿 : ${pushname}
 ┃✺ 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
 ┃✺ 𝗥𝘂𝗻𝘁𝗶𝗺𝗲 : ${runtime(process.uptime())}
-┃✺ 𝗕𝗼𝘁 : ${botname}
+┃✺ 𝗕𝗼𝘁 : 𝗧𝗢𝗚𝗘-𝗠𝗗
 ┃✺ 𝗢𝘄𝗻𝗲𝗿 : +${ownernumber}
 ┃✺ 𝗣𝗿𝗲𝗳𝗶𝘅 :  [ ${xprefix} ]
 ┃✺ 𝗠𝗼𝗱𝗲 : ${XeonBotInc.public ? 'Public' : `Self`}
@@ -6677,8 +6677,8 @@ case 'blur':
 ┃✺ 𝗧𝗼𝘁𝗮𝗹 𝗛𝗶𝘁 : ${global.db.data.settings[botNumber].totalhit} Hit
 ┃✺ 𝗧𝗼𝘁𝗮𝗹 𝗖𝗵𝗮𝘁 : ${Object.keys(global.db.data.chats).length} Chat/Gc
 ┗━━━━━━━━━━⊛
-┏━━⍟𝙏𝙄𝙈𝙀 𝙄𝙉𝙁𝙊 ⍟ 
-┃✺ 𝗶𝗺𝗲 : ${xtime}
+┏━━⍟ 𝙏𝙄𝙈𝙀 𝙄𝙉𝙁𝙊 ⍟ 
+┃✺ 𝗧𝗶𝗺𝗲 : ${xtime}
 ┃✺ 𝗗𝗮𝘁𝗲 : ${xdate}
 ┗━━━━━━━━━⊛
 ┏━━━━━━━━━⍟
