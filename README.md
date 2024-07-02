@@ -32,10 +32,10 @@
 ◉ Audio/Video Editor Commands                   
 ◉ Others...... 
 
-## `SCAN SESSION ID`
+## `PAIR CODE SESSION ID`
 1. ***Star⭐ The Repository Must***
 2. ***Click [FORK](https://github.com/toge012345/TOGE-MD/fork)***
-3. ***Get Your [SESSION ID](https://xlicon-v3-web.onrender.com/)***
+3. ***Get Your [SESSION ID](https://xlicon-v3-web.onrender.com/pair)***
 
 ## `HEROKU TEMPLATE`
 
