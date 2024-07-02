@@ -32,16 +32,15 @@
 ◉ Audio/Video Editor Commands                   
 ◉ Others...... 
 
-## `𝘋𝘦𝘱𝘭𝘰𝘺𝘮𝘦𝘯𝘵 𝘔𝘦𝘵𝘩𝘰𝘥𝘴`
+## `SCAN SESSION ID`
 1. ***Star⭐ The Repository Must***
 2. ***Click [FORK](https://github.com/toge012345/TOGE-MD/fork)***
 3. ***Get Your [SESSION ID](https://xlicon-v3-web.onrender.com/)***
-4. ***Deploy on [Heroku](https://dashboard.heroku.com/new?template=https://github.com/toge012345/TOGE-MD)***
 
 ## `HEROKU TEMPLATE`
 
 ```
-https://heroku.com/deploy?template=
+https://dashboard.heroku.com/new?template=
 ```
 ##
 - ***Star ⭐ My Repo If You Like TOGE-MD.***
