@@ -38,11 +38,10 @@
 3. ***Get Your [SESSION ID](https://xlicon-v3-web.onrender.com/)***
 4. ***Deploy on [Heroku](https://dashboard.heroku.com/new?template=https://github.com/toge012345/TOGE-MD)***
 
-## `BUILDPACKS`
+## `HEROKU TEMPLATE`
 
 ```
-https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest
-https://github.com/clhuang/heroku-buildpack-webp-binaries.git
+https://heroku.com/deploy?template=
 ```
 ##
 - ***Star ⭐ My Repo If You Like TOGE-MD.***
