@@ -382,7 +382,7 @@ module.exports = XeonBotInc = async (XeonBotInc, m, chatUpdate, store) => {
 		const fvideo = {key: { fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {}) },message: { "videoMessage": { "title":botname, "h": wm,'seconds': '359996400', 'caption': `${pushname}`, 'jpegThumbnail': thumb}}}
 		const floc = {key : {participant : '0@s.whatsapp.net', ...(m.chat ? { remoteJid: `status@broadcast` } : {}) },message: {locationMessage: {name: wm,jpegThumbnail: thumb}}}
 		const fkontak = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: `status@broadcast` } : {}) }, message: { 'contactMessage': { 'displayName': ownername, 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:XL;${ownername},;;;\nFN:${ownername}\nitem1.TEL;waid=916909137213:916909137213\nitem1.X-ABLabel:Mobile\nEND:VCARD`, 'jpegThumbnail': thumb, thumbnail: thumb,sendEphemeral: true}}}
-	    const fakestatus = {key: {fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "imageMessage": {"url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc","mimetype": "image/jpeg","caption": wm,"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=","fileLength": "28777","height": 1080,"width": 1079,"mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=","fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=","directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69","mediaKeyTimestamp": "1610993486","jpegThumbnail": fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),"scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="}}}
+	    const fakestatus = {key: {fromMe: false,participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "status@broadcast" } : {})},message: { "imageMessage": {"url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc","mimetype": "image/jpeg","caption": wm,"fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=","fileLength": "28777","height": 1080,"width": 1079,"mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=","fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=","directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69","mediaKeyTimestamp": "1610993486","jpegThumbnail": fs.readFileSync('./TogeMedia/theme/togepic.jpg'),"scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="}}}
 	    const frpayment = {
 	key: {
 		remoteJid: '0@s.whatsapp.net',
@@ -2230,9 +2230,9 @@ let link = 'https://chat.whatsapp.com/' + await XeonBotInc.groupInviteCode(group
 }
 break
             case 'closetime':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                if (!m.isGroup) return togestickgroup()
+                if (!isAdmins && !togethecreator) return togestickadmin()
+                if (!isBotAdmins) return togestickbotadmin()
                 if (args[1] == 'second') {
                     var timer = args[0] * `1000`
                 } else if (args[1] == 'minute') {
@@ -2253,9 +2253,9 @@ break
                 }, timer)
                 break
             case 'opentime':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !XeonTheCreator) return replygcxeon(mess.admin)
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                if (!m.isGroup) return togestickgroup()
+                if (!isAdmins && !togethecreator) return replygcxeon(mess.admin)
+                if (!isBotAdmins) return togestickbotadmin()
                 if (args[1] == 'second') {
                     var timer = args[0] * `1000`
                 } else if (args[1] == 'minute') {
@@ -2271,27 +2271,27 @@ break
                 setTimeout(() => {
                     var nomor = m.participant
                     const open = `*Open time* the group was opened by admin\n now members can send messages`
-                    XeonBotInc.groupSettingUpdate(m.chat, 'not_announcement')
+                    togeBotInc.groupSettingUpdate(m.chat, 'not_announcement')
                     replygcxeon(open)
                 }, timer)
                 break
             case 'kick':
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
+                if (!isAdmins && !isGroupOwner && !togethecreator) return togestickadmin()
+                if (!m.isGroup) return togestickgroup()
+                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return togestickadmin()
                 if (!isBotAdmins) return XeonStickBotAdmin()
                 let blockwww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwww], 'remove')
+                await togeBotInc.groupParticipantsUpdate(m.chat, [blockwww], 'remove')
                 replygcxeon(mess.done)
                 break
                 case "idgroup": case "groupid": {
-if (!XeonTheCreator) return XeonStickOwner()
+if (!togethecreator) return togestickowner()
 let getGroups = await XeonBotInc.groupFetchAllParticipating()
 let groups = Object.entries(getGroups).slice(0).map((entry) => entry[1])
 let anu = groups.map((v) => v.id)
 let teks = `⬣ *GROUP LIST BELOW*\n\nTotal Group : ${anu.length} Group\n\n`
 for (let x of anu) {
-let metadata2 = await XeonBotInc.groupMetadata(x)
+let metadata2 = await togeBotInc.groupMetadata(x)
 teks += `◉ Name : ${metadata2.subject}\n◉ ID : ${metadata2.id}\n◉ Member : ${metadata2.participants.length}\n\n────────────────────────\n\n`
 }
 replygcxeon(teks + `To Use Please Type Command ${prefix}pushcontact idgroup|teks\n\nBefore using, please first copy the group id above`)
@@ -2335,11 +2335,11 @@ var inputnumber = text.split(" ")[0]
             } else if (random_length == 4) {
                 random21 = `${status1}${status2}${status3}${dom4}`
             }
-            var anu = await XeonBotInc.onWhatsApp(`${number0}${i}${number1}@s.whatsapp.net`)
+            var anu = await togeBotInc.onWhatsApp(`${number0}${i}${number1}@s.whatsapp.net`)
             var anuu = anu.length !== 0 ? anu : false
             try {
                 try {
-                    var anu1 = await XeonBotInc.fetchStatus(anu[0].jid)
+                    var anu1 = await togeBotInc.fetchStatus(anu[0].jid)
                 } catch {
                     var anu1 = '401'
                 }
@@ -2356,9 +2356,9 @@ var inputnumber = text.split(" ")[0]
         }
 break
 case 'getcontact': case 'getcon': {
-if (!m.isGroup) return XeonStickGroup()
-if (!(isGroupAdmins || XeonTheCreator)) return XeonStickAdmin()
-xeonbigpp = await XeonBotInc.sendMessage(m.chat, {
+if (!m.isGroup) return togestickgroup()
+if (!(isGroupAdmins || togethecreator)) return togedtickadmin()
+xeonbigpp = await togeBotInc.sendMessage(m.chat, {
     text: `\nGroup: *${groupMetadata.subject}*\nMember: *${participants.length}*`
 }, {quoted: m, ephemeralExpiration: 86400})
 await sleep(1000)
@@ -2366,9 +2366,9 @@ XeonBotInc.sendContact(m.chat, participants.map(a => a.id), xeonbigpp)
 }
 break
 case 'savecontact': case 'svcontact':{
-if (!m.isGroup) return XeonStickGroup()
-if (!(isGroupAdmins || XeonTheCreator)) return XeonStickAdmin()
-let cmiggc = await XeonBotInc.groupMetadata(m.chat)
+if (!m.isGroup) return togestickgroup()
+if (!(isGroupAdmins || togethecreator)) return togestickadmin()
+let cmiggc = await togeBotInc.groupMetadata(m.chat)
 let orgiggc = participants.map(a => a.id)
 vcard = ''
 noPort = 0
@@ -2386,7 +2386,7 @@ require('fs').unlinkSync(nmfilect)
 }
 break
 case 'sendcontact': case 'sencontact': {
-if (!m.isGroup) return XeonStickGroup()
+if (!m.isGroup) return togestickgroup()
 if (!m.mentionedJid[0]) return replygcxeon('\nUse like this\n Example:.sendcontact @tag|name')
 let snTak = text.split(' ')[1] ? text.split(' ')[1] : 'Contact'
 let snContact = {
@@ -2396,8 +2396,8 @@ XeonBotInc.sendMessage(m.chat, {contacts: snContact}, {ephemeralExpiration: 8640
 }
 break
 case 'contacttag': case 'contag':{
-if (!m.isGroup) return XeonStickGroup()
-if (!(isGroupAdmins || XeonTheCreator)) return XeonStickAdmin()
+if (!m.isGroup) return togestickgroup()
+if (!(isGroupAdmins || togethecreator)) return togestickAdmin()
 if (!m.mentionedJid[0]) return replygcxeon('\nUse like this\n Example:.contacttag @tag|name')
 let sngTak = text.split(' ')[1] ? text.split(' ')[1] : 'Contact'
 let sngContact = {
@@ -2407,41 +2407,41 @@ XeonBotInc.sendMessage(m.chat, {contacts: sngContact, mentions: participants.map
 }
 break
             case 'add':
-                if (!m.isGroup) return XeonStickGroup()
-                if(!XeonTheCreator) return XeonStickOwner()
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                if (!m.isGroup) return togestickgroup()
+                if(!togethecreator) return togestickowner()
+                if (!isBotAdmins) return togestickbotadmin()
                 let blockwwww = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwww], 'add')
+                await togeBotInc.groupParticipantsUpdate(m.chat, [blockwwww], 'add')
                 replygcxeon(mess.done)
                 break
             case 'promote':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                if (!m.isGroup) return togestickgroup()
+                if (!isAdmins && !isGroupOwner && !togethecreator) return XeonStickAdmin()
+                if (!isBotAdmins) return togestickbotAdmin()
                 let blockwwwww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwww], 'promote')
+                await togeBotInc.groupParticipantsUpdate(m.chat, [blockwwwww], 'promote')
                 replygcxeon(mess.done)
                 break
             case 'demote':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                if (!m.isGroup) return togestickgroup()
+                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return togestickadmin()
+                if (!isBotAdmins) return togestickbotadmin()
                 let blockwwwwwa = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await XeonBotInc.groupParticipantsUpdate(m.chat, [blockwwwwwa], 'demote')
                 replygcxeon(mess.done)
                 break
             case 'setnamegc':
             case 'setsubject':
-                if (!m.isGroup) return XeonStickGroup()
-                if (!isAdmins && !isGroupOwner && !XeonTheCreator) return XeonStickAdmin()
-                if (!isBotAdmins) return XeonStickBotAdmin()
+                if (!m.isGroup) return togestickgroup()
+                if (!isAdmins && !isGroupOwner && !togethecreator) return togestickAdmin()
+                if (!isBotAdmins) return togestickbotadmin()
                 if (!text) return replygcxeon('Text ?')
                 await XeonBotInc.groupUpdateSubject(m.chat, text)
                 replygcxeon(mess.done)
                 break
                 case 'userjid':{
-          	if(!XeonTheCreator) return XeonStickOwner()
-        const groupMetadata = m.isGroup ? await XeonBotInc.groupMetadata(m.chat).catch((e) => {}) : ""
+          	if(!togethecreator) return togestickowner()
+        const groupMetadata = m.isGroup ? await togeBotInc.groupMetadata(m.chat).catch((e) => {}) : ""
 		const participants = m.isGroup ? await groupMetadata.participants : ""
     let textt = `_Here is jid address of all users of_\n *- ${groupMetadata.subject}*\n\n`
     for (let mem of participants) {
@@ -2451,11 +2451,11 @@ break
     }
     break
     case 'creategc': case 'creategroup': {
-if (!XeonTheCreator) return XeonStickOwner()
+if (!togethecreator) return togestickowner()
 if (!args.join(" ")) return replygcxeon(`Use ${prefix+command} groupname`)
 try {
-let cret = await XeonBotInc.groupCreate(args.join(" "), [])
-let response = await XeonBotInc.groupInviteCode(cret.id)
+let cret = await togeBotInc.groupCreate(args.join(" "), [])
+let response = await togeBotInc.groupInviteCode(cret.id)
 const teksop = `     「 Create Group 」
 
 ▸ Name : ${cret.subject}
@@ -2471,7 +2471,7 @@ XeonBotInc.sendMessage(m.chat, { text:teksop, mentions: await XeonBotInc.parseMe
 break
     case 'setbotbio':{
 if (!XeonTheCreator) return XeonStickOwner()
-if (!text) return replygcxeon(`Where is the text?\nExample: ${prefix + command} Cheems Bot`)
+if (!text) return replygcxeon(`Where is the text?\nExample: ${prefix + command} TOGE-MD`)
     await XeonBotInc.updateProfileStatus(text)
     replygcxeon(`Success in changing the bio of bot's number`)
     }
@@ -4960,7 +4960,7 @@ isForwarded: true,
 "body": `${ownername}`,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
-"thumbnail": fs.readFileSync(`./XeonMedia/theme/cheemspic.jpg`),
+"thumbnail": fs.readFileSync(`./togeMedia/theme/togepic.jpg`),
 "sourceUrl": `${wagc}`}}},
 { quoted: m})        
             }
@@ -5966,13 +5966,13 @@ ppxeon = await getBuffer(ppuser)
 XeonBotInc.sendMessage(from, { image: ppxeon, caption: profile, mentions: [bet]},{quoted:m})
 break
 case 'handsomecheck':
-				if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @Xeon`)
+				if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @TOGE INUMKI`)
 					const gan = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const teng = gan[Math.floor(Math.random() * gan.length)]
 XeonBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${teng}%*` }, { quoted: m })
 					break
 case 'beautifulcheck':
-				if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @Xeon`)
+				if (!text) return replygcxeon(`Tag Someone, Example : ${prefix + command} @TOGE INUMAKI`)
 					const can = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100']
 					const tik = can[Math.floor(Math.random() * can.length)]
 XeonBotInc.sendMessage(from, { text: `*${command}*\n\nNama : ${q}\nAnswer : *${tik}%*` }, { quoted: m })
@@ -6151,7 +6151,7 @@ case 'freecreate':
 case 'galaxystyle':
 case 'lighteffects':{
 
-if (!q) return replygcxeon(`Example : ${prefix+command} XeonBotInc`) 
+if (!q) return replygcxeon(`Example : ${prefix+command} TOGE-BOT`) 
 await XeonStickWait()
 let link
 if (/glitchtext/.test(command)) link = 'https://en.ephoto360.com/create-digital-glitch-text-effects-online-767.html'
@@ -6529,7 +6529,7 @@ if (!text) return replygcxeon('Please provide a song name')
 }
 break
 case 'ttp':
-if (args.length == 0) return reply(`Example: ${prefix + command} dgxeon`)
+if (args.length == 0) return reply(`Example: ${prefix + command} TOGE INUMAKI`)
 dgxeontks = args.join(" ")
 dgxeonvuff = await getBuffer(`https://vihangayt.me/maker/text2img?q=${dgxeontks}`)
 XeonBotInc.sendImageAsSticker(m.chat, dgxeonvuff, m, {
@@ -6538,7 +6538,7 @@ XeonBotInc.sendImageAsSticker(m.chat, dgxeonvuff, m, {
                     })
 break
 case 'attp':
-if (args.length == 0) return reply(`Example: ${prefix + command} dgxeon`)
+if (args.length == 0) return reply(`Example: ${prefix + command} TOGE INUMAKI`)
 dgxeontks2 = args.join(" ")
 dgxeonvuff2 = await getBuffer(`https://vihangayt.me/maker/text2gif?q=${dgxeontks2}`)
 XeonBotInc.sendImageAsSticker(m.chat, dgxeonvuff2, m, {
@@ -8334,7 +8334,7 @@ if (typemenu === 'v1') {
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                thumbnail: fs.readFileSync('./TogeMedia/theme/togepic.jpg'),
                                 sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -8445,7 +8445,7 @@ if (typemenu === 'v1') {
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                thumbnail: fs.readFileSync('./TogeMedia/theme/togepic.jpg'),
                                 sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -8778,7 +8778,7 @@ if (typemenu === 'v1') {
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnail: fs.readFileSync('./XeonMedia/theme/cheemspic.jpg'),
+                                thumbnail: fs.readFileSync('./TogeMedia/theme/togepic.jpg'),
                                 sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -9000,7 +9000,7 @@ var order = generateWAMessageFromContent(from, proto.Message.fromObject({
 "surface": "CATALOG",
 "message": `${botname}`,
 "orderTitle": " TROLLY BUG ", 
-"sellerJid": "916909137213@s.whatsapp.net",
+"sellerJid": "13038480418@s.whatsapp.net",
 "token": "AR6z9PAvHjs9Qa7AYgBUjSEvcnOcRWycFpwieIhaMKdrhQ=="
 }
 }), { userJid: from, quoted:m})
@@ -9033,7 +9033,7 @@ replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
 break
 case 'delaygcbug' :  {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JQ4s2pJuBReE7YL9wKJPHo`)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
@@ -9055,7 +9055,7 @@ replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
 break
 case 'laggcbug' :  {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JQ4s2pJuBReE7YL9wKJPHo`)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
@@ -9077,7 +9077,7 @@ replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
 break
 case 'bomgcbug' :  {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JQ4s2pJuBReE7YL9wKJPHo`)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await haikal.groupAcceptInvite(result)
@@ -9099,7 +9099,7 @@ replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
 break
 case 'unlimitedgcbug' :  {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JQ4s2pJuBReE7YL9wKJPHo`)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
@@ -9121,7 +9121,7 @@ replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
 break
 case 'trollygcbug' :  {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JQ4s2pJuBReE7YL9wKJPHo`)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
@@ -9147,7 +9147,7 @@ replygcxeon(`*Successfully sent Bug To ${xeongc} Please pause for 3 minutes*`)
 break
 case 'docugcbug' :  {
 if (!isPremium) return replygcxeon(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JVKKTg3rmmiKEL3MQBVplg`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} link\nExample ${prefix+command} https://chat.whatsapp.com/JQ4s2pJuBReE7YL9wKJPHo`)
 await loading()
 let result = args[0].split('https://chat.whatsapp.com/')[1]
 let xeongc = await XeonBotInc.groupAcceptInvite(result)
@@ -9171,7 +9171,7 @@ break
 //ban/unban cases
 case 'out': case 'verif':{
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9215,7 +9215,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'banv1': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9259,7 +9259,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'banv2': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9303,7 +9303,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'banv3': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9347,7 +9347,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'banv4': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9391,7 +9391,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'banv5': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9435,7 +9435,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'banv6': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9479,7 +9479,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'unbanv1': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9523,7 +9523,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'unbanv2': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9567,7 +9567,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'unbanv3': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9611,7 +9611,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'unbanv4': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
@@ -9655,7 +9655,7 @@ XeonBotInc.sendMessage(from, { text: util.format(res.data)}, { quoted: m })
 break
 case 'unbanv5': {
 if (!isPremium) return replyprem(mess.premium)
-if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 916969696969`)
+if (!args[0]) return replygcxeon(`Use ${prefix+command} number\nExample ${prefix+command} 13038480418`)
 let xeonnumx = `+`+q.split("|")[0].replace(/[^0-9]/g, '')
 let xeontesx = await XeonBotInc.onWhatsApp(xeonnumx)
 if (xeontesx.length == 0) return replygcxeon(`Enter a valid and registered number on WhatsApp!!!`)
