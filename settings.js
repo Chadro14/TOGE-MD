@@ -29,7 +29,7 @@ global.hituet = 0
 
 //bot sett
 global.typemenu = 'v8' // menu type 'v1' => 'v8'
-global.typereply = 'v4' // reply type 'v1' => 'v3'
+global.typereply = 'v2' // reply type 'v1' => 'v3'
 global.autoblocknumber = '212' //set autoblock country code
 global.antiforeignnumber = '1' //set anti foreign number country code
 global.welcome = false //welcome/left in groups
