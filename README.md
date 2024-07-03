@@ -57,5 +57,5 @@ https://dashboard.heroku.com/new?template=
 - *I will only Assist You in Bot Deployment and Hosting, Not in Bot Development*
 - *If Someone Modify My Bot Or Try To Copy It I Will Instantly Give Legal Copy Right Strike And Ban That User Repo And Account*
 - *This Bot is For Fun and Educational Purpose, I will not Responsible If You Spam and And Got Banned*
-- ***Regards [𝐓𝐎𝐆𝐄 𝐈𝐍𝐔𝐌𝐀𝐊𝐈](https://github.com/toge012345)***
+- ***Credit : [DGXeon](https://github.com/DGXeon)***
 ##
