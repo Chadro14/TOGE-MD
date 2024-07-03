@@ -42,6 +42,31 @@
 ```
 https://dashboard.heroku.com/new?template=
 ```
+
+## `For Termux/Ubuntu`
+```bash
+apt update
+apt upgrade
+pkg update && pkg upgrade
+pkg install bash
+pkg install libwebp
+pkg install git -y
+pkg install nodejs -y 
+pkg install ffmpeg -y 
+pkg install wget
+pkg install imagemagick -y
+git clone https://github.com/toge012345/TOGE-MD
+cd TOGE-MD
+yarn install
+npm start
+```
+
+## `For 24/7 Activation (Termux)`
+```bash
+npm i -g pm2 && pm2 start index.js && pm2 save && pm2 logs
+```
+
+
 ##
 - ***Star ⭐ My Repo If You Like TOGE-MD.***
 - ***The [TOGE-MD](https://github.com/toge012345/TOGE-MD) is Made Under The [Apache-2.0 license](https://github.com/toge012345/TOGE-MD/blob/main/LICENSE).***
