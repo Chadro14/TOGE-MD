@@ -1,11 +1,3 @@
-//base by DGXeon (Xeon Bot Inc.)
-//YouTube: @DGXeon
-//Instagram: unicorn_xeon13
-//Telegram: t.me/xeonbotinc
-//GitHub: @DGXeon
-//WhatsApp: +916909137213
-//want more free bot scripts? subscribe to my youtube channel: https://youtube.com/@DGXeon
-
 require('./settings')
 const makeWASocket = require("@whiskeysockets/baileys").default
 const { uncache, nocache } = require('./lib/loader')
@@ -177,7 +169,7 @@ try{
             console.log(chalk.yellow(`\n\n               ${chalk.bold.blue(`[ ${botname} ]`)}\n\n`))
             console.log(color(`< ================================================== >`, 'cyan'))
 	        console.log(color(`\n${themeemoji} YT CHANNEL: kenzo3146`,'magenta'))
-            console.log(color(`${themeemoji} GITHUB: toge/12345 `,'magenta'))
+            console.log(color(`${themeemoji} GITHUB: toge12345 `,'magenta'))
             console.log(color(`${themeemoji} INSTAGRAM: @lawliet.kfx `,'magenta'))
             console.log(color(`${themeemoji} WA NUMBER: ${owner}`,'magenta'))
             console.log(color(`${themeemoji} CREDIT: ${wm}\n`,'magenta'))
@@ -221,17 +213,9 @@ XeonLft = await getBuffer(ppuser)
                 const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 	            const xmembers = metadata.participants.length
-                xeonbody = `┌─❖
-│「 𝗛𝗶 👋 」
-└┬❖ 「  @${xeonName.split("@")[0]}  」
-   │✑  𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 
-   │✑  ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xmembers}th
-   │✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
-   │✑ ${xtime} ${xdate}
-   │   ᴛᴏɢᴇ ɪɴᴜᴍᴀᴋɪ
-   └───────────────┈ ⳹`
+                xeonbody = `hello 🙌 welcome to our group 「  @${xeonName.split("@")[0]}  」
+
+our group is called ${metadata.subject}  thank you for respecting our rules`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
@@ -250,17 +234,7 @@ XeonBotInc.sendMessage(anu.id,
 	                const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
                 	let xeonName = num
                     const xeonmembers = metadata.participants.length
-                    xeonbody = `┌─❖
-│「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
-└┬❖ 「 @${xeonName.split("@")[0]}  」
-   │✑  𝗟𝗲𝗳𝘁 
-   │✑ ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xeonmembers}th
-   │✑  𝗧𝗶𝗺𝗲 : 
-   │✑  ${xeontime} ${xeondate}
-   │   ᴛᴏɢᴇ ɪɴᴜᴍᴀᴋɪ
-   └───────────────┈ ⳹`
+                    xeonbody = `thank you for joining our group「  @${xeonName.split("@")[0]}  」 😞 sorry you are already leaving but thank you`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
