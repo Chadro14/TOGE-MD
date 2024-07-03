@@ -18,7 +18,7 @@ global.ownername = '•.¸♡ 𝐓𝐎𝐆𝐄 𝐈𝐍𝐔𝐌𝐀𝐊𝐈 ♡�
 global.websitex = "https://youtube.com/@kenzo3146?si=Lqo5o0SRMEOsPr0D"
 global.wagc = "https://whatsapp.com/channel/0029VaYtF0Z2975CYz9Fmv2k"
 global.themeemoji = '🍫'
-global.wm = "TOGE-MD-2.0"
+global.wm = "TOGE-MD"
 global.botscript = 'https://github.com/toge012345/TOGE-MD' //script link
 global.packname = "Sticker By"
 global.author = "•.¸♡ 𝐓𝐎𝐆𝐄 𝐈𝐍𝐔𝐌𝐀𝐊𝐈 ♡¸.•\n\n+916909137213"
@@ -29,7 +29,7 @@ global.hituet = 0
 
 //bot sett
 global.typemenu = 'v8' // menu type 'v1' => 'v8'
-global.typereply = 'v2' // reply type 'v1' => 'v3'
+global.typereply = 'v4' // reply type 'v1' => 'v3'
 global.autoblocknumber = '212' //set autoblock country code
 global.antiforeignnumber = '1' //set anti foreign number country code
 global.welcome = false //welcome/left in groups
