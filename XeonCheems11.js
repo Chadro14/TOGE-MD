@@ -1868,7 +1868,7 @@ case 'block': case 'ban': {
                                 showAdAttribution: true,
                                 title: botname,
                                 body: `Sent in ${i.length} Group`,
-                                thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/e032a107c82cac9702783.jpg',
                                 sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2890,7 +2890,7 @@ break
                             showAdAttribution: true,
                             title: botname,
                             body: ownername,
-                            thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                            thumbnailUrl: 'https://telegra.ph/file/e032a107c82cac9702783.jpg',
                             sourceUrl: wagc,
                             mediaType: 1,
                             renderLargerThumbnail: true
@@ -2928,7 +2928,7 @@ break
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/e032a107c82cac9702783.jpg',
                                 sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2944,7 +2944,7 @@ break
                                 showAdAttribution: true,
                                 title: botname,
                                 body: ownername,
-                                thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                                thumbnailUrl: 'https://telegra.ph/file/e032a107c82cac9702783.jpg',
                                 sourceUrl: wagc,
                                 mediaType: 1,
                                 renderLargerThumbnail: true
@@ -2965,7 +2965,7 @@ break
                             showAdAttribution: true,
                             title: botname,
                             body: ownername,
-                            thumbnailUrl: 'https://i.ibb.co/Wppj16p/cheemspic.jpg',
+                            thumbnailUrl: 'https://telegra.ph/file/e032a107c82cac9702783.jpg',
                             sourceUrl: wagc,
                             mediaType: 1,
                             renderLargerThumbnail: true
@@ -4372,7 +4372,7 @@ case 'tiktokstalk': {
 }
 break
 case 'xxxigstalk': {
-if (!text) return replygcxeon(`Enter Instagram Username\n\nExample: ${prefix + command} unicorn_xeon13`)
+if (!text) return replygcxeon(`Enter Instagram Username\n\nExample: ${prefix + command} lawliet.kfx`)
     let res = await fg.igStalk(text)
     let te = `
 ┌──「 *STALKING* 
@@ -4960,7 +4960,7 @@ isForwarded: true,
 "body": `${ownername}`,
 "previewType": "PHOTO",
 "thumbnailUrl": ``,
-"thumbnail": fs.readFileSync(`./togeMedia/theme/togepic.jpg`),
+"thumbnail": fs.readFileSync(`./TogeMedia/theme/togepic.jpg`),
 "sourceUrl": `${wagc}`}}},
 { quoted: m})        
             }
@@ -6659,10 +6659,8 @@ case 'blur':
             let latensie = speed() - timestampe
             let a = db.data.users[sender]
             let me = m.sender
-            let xmenu_oh = `╭══ *❍𝗧𝗢𝗚𝗘-𝗠𝗗❍*
-┃❁ 𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥 : ᴛᴏɢᴇ ɪɴᴜᴍᴀᴋɪ
-┃❁ 𝗡𝗨𝗠𝗕𝗘𝗥 : +13038480418
-╰┈➤
+            let xmenu_oh = `𝗵𝗶 ${pushname} 𝗜 𝗮𝗺 "𝗧𝗢𝗚𝗘-𝗠𝗗" 𝗮 𝗺𝘂𝗹𝘁𝗶𝗳𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝗮𝗹 𝗯𝗼𝘁 𝘄𝗵𝗼 𝗰𝗮𝗻 𝗵𝗲𝗹𝗽 𝘆𝗼𝘂 𝘄𝗶𝘁𝗵 𝗱𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝘁 𝗰𝗼𝗱𝗶𝗻𝗴 𝘁𝗮𝘀𝗸𝘀 𝗯𝘆 𝘁𝗼𝗴𝗲.
+	    
 ┏━⍟ 𝘽𝙊𝙏 𝙄𝙉𝙁𝙊 ⍟
 ┃✺ 𝗨𝘀𝗲𝗿 : ${pushname}
 ┃✺ 𝗦𝗽𝗲𝗲𝗱 : ${latensie.toFixed(4)} miliseconds
