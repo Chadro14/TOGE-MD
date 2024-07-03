@@ -28,8 +28,9 @@ jobs:
 
       - name: Build the Docker image
 
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/TOGE-MD
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/cheemsbot11oh
 
       - name: Docker Push
 
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/TOGE-MD
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/cheemsbot11oh
+        
