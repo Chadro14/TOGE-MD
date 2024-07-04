@@ -1,586 +1,409 @@
-require('./settings')
-const makeWASocket = require("@whiskeysockets/baileys").default
-const { uncache, nocache } = require('./lib/loader')
-const { color } = require('./lib/color')
-const NodeCache = require("node-cache")
-const readline = require("readline")
-const pino = require('pino')
-const { Boom } = require('@hapi/boom')
-const { Low, JSONFile } = require('./lib/lowdb')
-const yargs = require('yargs/yargs')
-const fs = require('fs')
-const chalk = require('chalk')
-const FileType = require('file-type')
-const path = require('path')
-const axios = require('axios')
-const _ = require('lodash')
-const moment = require('moment-timezone')
-const PhoneNumber = require('awesome-phonenumber')
-const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
-const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc')
-const { default: XeonBotIncConnect, getAggregateVotesInPollMessage, delay, PHONENUMBER_MCC, makeCacheableSignalKeyStore, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto, Browsers} = require("@whiskeysockets/baileys")
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+import './config.js'
 
-const store = makeInMemoryStore({
-    logger: pino().child({
-        level: 'silent',
-        stream: 'store'
-    })
-})
+import path, { join } from 'path'
+import { platform } from 'process'
+import { fileURLToPath, pathToFileURL } from 'url'
+import { createRequire } from 'module' // Bring in the ability to create the 'require' method
+global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
+import {
+    readdirSync,
+    statSync,
+    unlinkSync,
+    existsSync,
+    readFileSync,
+    watch
+} from 'fs'
+import yargs from 'yargs'
+import { spawn } from 'child_process'
+import lodash from 'lodash'
+import syntaxerror from 'syntax-error'
+import chalk from 'chalk'
+import { tmpdir } from 'os'
+import readline from 'readline'
+import { format } from 'util'
+import pino from 'pino'
+import ws from 'ws'
+import {
+    useMultiFileAuthState,
+    DisconnectReason,
+    fetchLatestBaileysVersion, 
+    makeInMemoryStore, 
+    makeCacheableSignalKeyStore, 
+    PHONENUMBER_MCC
+    } from '@adiwajshing/baileys'
+import { Low, JSONFile } from 'lowdb'
+import { makeWASocket, protoType, serialize } from './lib/simple.js'
+import {
+    mongoDB,
+    mongoDBV2
+} from './lib/mongoDB.js'
+
+const { CONNECTING } = ws
+const { chain } = lodash
+const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
+
+protoType()
+serialize()
+
+global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
+// global.Fn = function functionCallBack(fn, ...args) { return fn.call(global.conn, ...args) }
+global.timestamp = {
+  start: new Date
+}
+
+const __dirname = global.__dirname(import.meta.url)
+
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
-global.db = new Low(new JSONFile(`src/database.json`))
+global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 
-global.DATABASE = global.db
+global.db = new Low(
+  /https?:\/\//.test(opts['db'] || '') ?
+    new cloudDBAdapter(opts['db']) : /mongodb(\+srv)?:\/\//i.test(opts['db']) ?
+      (opts['mongodbv2'] ? new mongoDBV2(opts['db']) : new mongoDB(opts['db'])) :
+      new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`)
+)
+global.DATABASE = global.db // Backwards Compatibility
 global.loadDatabase = async function loadDatabase() {
-  if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
-  if (global.db.data !== null) return
-  global.db.READ = true
-  await global.db.read()
-  global.db.READ = false
-  global.db.data = {
-    users: {},
-    database: {},
-    chats: {},
-    game: {},
-    settings: {},
-    message: {},
-    ...(global.db.data || {})
-  }
-  global.db.chain = _.chain(global.db.data)
+    if (db.READ) return new Promise((resolve) => setInterval(async function () {
+        if (!db.READ) {
+            clearInterval(this)
+            resolve(db.data == null ? global.loadDatabase() : db.data)
+        }
+    }, 1 * 1000))
+    if (db.data !== null) return
+    db.READ = true
+    await db.read().catch(console.error)
+    db.READ = null
+    db.data = {
+        users: {},
+        chats: {},
+        stats: {},
+        msgs: {},
+        sticker: {},
+        settings: {},
+        ...(db.data || {})
+    }
+    global.db.chain = chain(db.data)
 }
 loadDatabase()
+const useStore = !process.argv.includes('--use-store')
+const usePairingCode = !process.argv.includes('--use-pairing-code')
+const useMobile = process.argv.includes('--mobile')
 
-if (global.db) setInterval(async () => {
-   if (global.db.data) await global.db.write()
-}, 30 * 1000)
-
-require('./TOGE-MD.js')
-nocache('../TOGE-MD.js', module => console.log(color('[ CHANGE ]', 'green'), color(`'${module}'`, 'green'), 'Updated'))
-require('./main.js')
-nocache('../main.js', module => console.log(color('[ CHANGE ]', 'green'), color(`'${module}'`, 'green'), 'Updated'))
-
-//------------------------------------------------------
-let phoneNumber = "13038480418"
-let owner = JSON.parse(fs.readFileSync('./src/data/role/owner.json'))
-
-const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
-const useMobile = process.argv.includes("--mobile")
-
+var question = function(text) {
+            return new Promise(function(resolve) {
+                rl.question(text, resolve);
+            });
+        };
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-const question = (text) => new Promise((resolve) => rl.question(text, resolve))
 
-async function startXeonBotInc() {
-let { version, isLatest } = await fetchLatestBaileysVersion()
-const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
-    const msgRetryCounterCache = new NodeCache() // for retry message, "waiting message"
-    const XeonBotInc = makeWASocket({
-        logger: pino({ level: 'silent' }),
-        printQRInTerminal: !pairingCode, // popping up QR in terminal log
-      browser: Browsers.windows('Firefox'), // for this issues https://github.com/WhiskeySockets/Baileys/issues/328
-     auth: {
-         creds: state.creds,
-         keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
-      },
-      markOnlineOnConnect: true, // set false for offline
-      generateHighQualityLinkPreview: true, // make high preview link
-      getMessage: async (key) => {
-         let jid = jidNormalizedUser(key.remoteJid)
-         let msg = await store.loadMessage(jid, key.id)
+const store = useStore ? makeInMemoryStore({ level: 'silent' }) : undefined
 
-         return msg?.message || ""
-      },
-      msgRetryCounterCache, // Resolve waiting messages
-      defaultQueryTimeoutMs: undefined, // for this issues https://github.com/WhiskeySockets/Baileys/issues/276
-   })
-   
-   store.bind(XeonBotInc.ev)
+store?.readFromFile('./ikratos_store.json')
+// save every 10s
+setInterval(() => {
+	store?.writeToFile('./ikratos_store.json')
+}, 10_000)
 
-    // login use pairing code
-   // source code https://github.com/WhiskeySockets/Baileys/blob/master/Example/example.ts#L61
-   if (pairingCode && !XeonBotInc.authState.creds.registered) {
-      if (useMobile) throw new Error('Cannot use pairing code with mobile api')
+const { version, isLatest} = await fetchLatestBaileysVersion()
+const { state, saveCreds } = await useMultiFileAuthState('./sessions')
+const connectionOptions = {
+        version,
+        logger: pino({ level: 'silent' }), 
+        printQRInTerminal: !usePairingCode, 
+        browser: ['Ikratos-MD', 'safari', '5.1.10'],
+        auth: { 
+         creds: state.creds, 
+         keys: makeCacheableSignalKeyStore(state.keys, pino().child({ 
+             level: 'silent', 
+             stream: 'store' 
+         })), 
+     },
+     getMessage: async key => {
+    		const messageData = await store.loadMessage(key.remoteJid, key.id);
+    		return messageData?.message || undefined;
+	},
+  generateHighQualityLinkPreview: true, 
+	      patchMessageBeforeSending: (message) => {
+                const requiresPatch = !!(
+                    message.buttonsMessage 
+                    || message.templateMessage
+                    || message.listMessage
+                );
+                if (requiresPatch) {
+                    message = {
+                        viewOnceMessage: {
+                            message: {
+                                messageContextInfo: {
+                                    deviceListMetadataVersion: 2,
+                                    deviceListMetadata: {},
+                                },
+                                ...message,
+                            },
+                        },
+                    };
+                }
 
-      let phoneNumber
-      if (!!phoneNumber) {
-         phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
+                return message;
+            }, 
+	connectTimeoutMs: 60000, defaultQueryTimeoutMs: 0, generateHighQualityLinkPreview: true, syncFullHistory: true, markOnlineOnConnect: true
+}
 
-         if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("Start with country code of your WhatsApp Number, Example : +13038480418")))
-            process.exit(0)
-         }
-      } else {
-         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFor example: +13038480418 : `)))
-         phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
+global.conn = makeWASocket(connectionOptions)
+conn.isInit = false
 
-         // Ask again when entering the wrong number
-         if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("Start with country code of your WhatsApp Number, Example : +13038480418")))
+if(usePairingCode && !conn.authState.creds.registered) {
+		if(useMobile) throw new Error('Cannot use pairing code with mobile api')
+		const { registration } = { registration: {} }
+		let phoneNumber = ''
+		do {
+			phoneNumber = await question(chalk.blueBright('Input a Valid number start with region code. Example : 62xxx:\n'))
+		} while (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v)))
+		rl.close()
+		phoneNumber = phoneNumber.replace(/\D/g,'')
+		console.log(chalk.bgWhite(chalk.blue('Generating code...')))
+		setTimeout(async () => {
+			let code = await conn.requestPairingCode(phoneNumber)
+			code = code?.match(/.{1,4}/g)?.join('-') || code
+			console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
+		}, 3000)
+	}
 
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Please type your WhatsApp number 😍\nFor example: +13038480418 : `)))
-            phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
-            rl.close()
-         }
+if (!opts['test']) {
+  (await import('./server.js')).default(PORT)
+  setInterval(async () => {
+    if (global.db.data) await global.db.write().catch(console.error)
+   // if (opts['autocleartmp']) try {
+      clearTmp()
+  //  } catch (e) { console.error(e) }
+  }, 60 * 1000)
+}
+
+function clearTmp() {
+  const tmp = [tmpdir(), join(__dirname, './tmp')]
+  const filename = []
+  tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
+  return filename.map(file => {
+    const stats = statSync(file)
+    if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 3)) return unlinkSync(file) // 3 minutes
+    return false
+  })
+}
+
+function clearSessions(folder = 'sessions') {
+	let filename = []
+	readdirSync(folder).forEach(file => filename.push(join(folder, file)))
+	return filename.map(file => {
+		let stats = statSync(file)
+		if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 120)) { // 1 hours
+			console.log('Deleted sessions', file)
+			return unlinkSync(file)
+		}
+		return false
+	})
+}
+
+async function connectionUpdate(update) {
+    const { receivedPendingNotifications, connection, lastDisconnect, isOnline, isNewLogin } = update;
+
+    if (isNewLogin) {
+        conn.isInit = true;
+    }
+
+    if (connection == 'connecting') {
+        console.log(chalk.redBright('⚡ Activating bot please wait a moment...'));
+    } else if (connection == 'open') {
+        console.log(chalk.green('✅ Connected'));
+    }
+
+    if (isOnline == true) {
+        console.log(chalk.green('Status Active'));
+    } else if (isOnline == false) {
+        console.log(chalk.red('Status Dead'));
+    }
+
+    if (receivedPendingNotifications) {
+        console.log(chalk.yellow('Wait Reading Old Messages'));
+    }
+
+    if (connection == 'close') {
+        console.log(chalk.red('⏱️ disconnected & trying to reconnect ...'));
+    }
+
+    global.timestamp.connect = new Date;
+
+    if (lastDisconnect && lastDisconnect.error && lastDisconnect.error.output && lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut && conn.ws.readyState !== CONNECTING) {
+        console.log(await global.reloadHandler(true));
+    }
+
+    if (global.db.data == null) {
+        await global.loadDatabase();
+    }
+}
+
+process.on('uncaughtException', console.error)
+// let strQuot = /(["'])(?:(?=(\\?))\2.)*?\1/
+
+let isInit = true
+let handler = await import('./handler.js')
+global.reloadHandler = async function (restatConn) {
+    /*try {
+        const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error)*/
+    try {
+	// Jika anda menggunakan replit, gunakan yang sevenHoursLater dan tambahkan // pada const Handler
+	// Default: server/vps/panel, replit + 7 jam buat jam indonesia
+        // const sevenHoursLater = Date.now() + 7 * 60 * 60 * 1000;
+        const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error)
+      // const Handler = await import(`./handler.js?update=${sevenHoursLater}`).catch(console.error)
+        if (Object.keys(Handler || {}).length) handler = Handler
+    } catch (e) {
+        console.error(e)
+    }
+    if (restatConn) {
+        const oldChats = global.conn.chats
+        try { global.conn.ws.close() } catch { }
+        conn.ev.removeAllListeners()
+        global.conn = makeWASocket(connectionOptions, { chats: oldChats })
+        isInit = true
+    }    
+  if (!isInit) {
+    conn.ev.off('messages.upsert', conn.handler)
+    conn.ev.off('group-participants.update', conn.participantsUpdate)
+    conn.ev.off('groups.update', conn.groupsUpdate)
+    conn.ev.off('message.delete', conn.onDelete)
+    conn.ev.off('connection.update', conn.connectionUpdate)
+    conn.ev.off('creds.update', conn.credsUpdate)
+  }
+
+  conn.welcome = '❖━━━━━━[ ᴡᴇʟᴄᴏᴍᴇ ]━━━━━━❖\n\n┏––––––━━━━━━━━•\n│☘︎ @subject\n┣━━━━━━━━┅┅┅\n│( 👋 Hi @user)\n├[ ɪɴᴛʀᴏ ]—\n│ ɴᴀᴍᴀ: \n│ ᴜᴍᴜʀ: \n│ ɢᴇɴᴅᴇʀ:\n┗––––––━━┅┅┅\n\n––––––┅┅ ᴅᴇsᴄʀɪᴘᴛɪᴏɴ ┅┅––––––\n@desc' 
+  conn.bye = '❖━━━━━━[ ʟᴇᴀᴠɪɴɢ ]━━━━━━❖\nGoodBye  @user 👋😃\n\nSomeone Just Left The Room @subject' 
+  conn.spromote = '@user congratulations you are now an admin!' 
+  conn.sdemote = '@user You are no longer an admin!' 
+  conn.sDesc = 'Description bdl di gai hy, new description: \n@desc' 
+  conn.sSubject = 'Group name has been changed, new name: \n@subject' 
+  conn.sIcon = 'Icon updated!' 
+  conn.sRevoke = 'Link group updated, new link \n@revoke' 
+  conn.sAnnounceOn = 'Group telah di tutup!\nsekarang hanya admin yang dapat mengirim pesan.' 
+  conn.sAnnounceOff = 'Group telah di buka!\nsekarang semua peserta dapat mengirim pesan.' 
+  conn.sRestrictOn = 'Edit Info Group changed  to only admin!' 
+  conn.sRestrictOff = 'Edit Info Group is changed to all participants!'
+
+  conn.handler = handler.handler.bind(global.conn)
+  conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
+  conn.groupsUpdate = handler.groupsUpdate.bind(global.conn)
+  conn.onDelete = handler.deleteUpdate.bind(global.conn)
+  conn.connectionUpdate = connectionUpdate.bind(global.conn)
+  conn.credsUpdate = saveCreds.bind(global.conn)
+
+  conn.ev.on('messages.upsert', conn.handler)
+  conn.ev.on('group-participants.update', conn.participantsUpdate)
+  conn.ev.on('groups.update', conn.groupsUpdate)
+  conn.ev.on('message.delete', conn.onDelete)
+  conn.ev.on('connection.update', conn.connectionUpdate)
+  conn.ev.on('creds.update', conn.credsUpdate)
+  isInit = false
+  return true
+
+}
+
+const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
+const pluginFilter = filename => /\.js$/.test(filename)
+global.plugins = {}
+async function filesInit() {
+  for (let filename of readdirSync(pluginFolder).filter(pluginFilter)) {
+    try {
+      let file = global.__filename(join(pluginFolder, filename))
+      const module = await import(file)
+      global.plugins[filename] = module.default || module
+    } catch (e) {
+      conn.logger.error(e)
+      delete global.plugins[filename]
+    }
+  }
+}
+filesInit().then(_ => console.log(Object.keys(global.plugins))).catch(console.error)
+
+global.reload = async (_ev, filename) => {
+  if (pluginFilter(filename)) {
+    let dir = global.__filename(join(pluginFolder, filename), true)
+    if (filename in global.plugins) {
+      if (existsSync(dir)) conn.logger.info(`re - require plugin '${filename}'`)
+      else {
+        conn.logger.warn(`deleted plugin '${filename}'`)
+        return delete global.plugins[filename]
       }
+    } else conn.logger.info(`requiring new plugin '${filename}'`)
+    let err = syntaxerror(readFileSync(dir), filename, {
+      sourceType: 'module',
+      allowAwaitOutsideFunction: true
+    })
+    if (err) conn.logger.error(`syntax error while loading '${filename}'\n${format(err)}`)
+    else try {
+      const module = (await import(`${global.__filename(dir)}?update=${Date.now()}`))
+      global.plugins[filename] = module.default || module
+    } catch (e) {
+      conn.logger.error(`error require plugin '${filename}\n${format(e)}'`)
+    } finally {
+      global.plugins = Object.fromEntries(Object.entries(global.plugins).sort(([a], [b]) => a.localeCompare(b)))
+    }
+  }
+}
+Object.freeze(global.reload)
+watch(pluginFolder, global.reload)
+await global.reloadHandler()
 
-      setTimeout(async () => {
-         let code = await XeonBotInc.requestPairingCode(phoneNumber)
-         code = code?.match(/.{1,4}/g)?.join("-") || code
-         console.log(chalk.black(chalk.bgGreen(`Your Pairing Code : `)), chalk.black(chalk.white(code)))
-      }, 3000)
-   }
+// Quick Test
 
-XeonBotInc.ev.on('connection.update', async (update) => {
-	const {
-		connection,
-		lastDisconnect
-	} = update
-try{
-		if (connection === 'close') {
-			let reason = new Boom(lastDisconnect?.error)?.output.statusCode
-			if (reason === DisconnectReason.badSession) {
-				console.log(`Bad Session File, Please Delete Session and Scan Again`);
-				startXeonBotInc()
-			} else if (reason === DisconnectReason.connectionClosed) {
-				console.log("Connection closed, reconnecting....");
-				startXeonBotInc();
-			} else if (reason === DisconnectReason.connectionLost) {
-				console.log("Connection Lost from Server, reconnecting...");
-				startXeonBotInc();
-			} else if (reason === DisconnectReason.connectionReplaced) {
-				console.log("Connection Replaced, Another New Session Opened, Please Close Current Session First");
-				startXeonBotInc()
-			} else if (reason === DisconnectReason.loggedOut) {
-				console.log(`Device Logged Out, Please Delete Session and Scan Again.`);
-				startXeonBotInc();
-			} else if (reason === DisconnectReason.restartRequired) {
-				console.log("Restart Required, Restarting...");
-				startXeonBotInc();
-			} else if (reason === DisconnectReason.timedOut) {
-				console.log("Connection TimedOut, Reconnecting...");
-				startXeonBotInc();
-			} else XeonBotInc.end(`Unknown DisconnectReason: ${reason}|${connection}`)
-		}
-		if (update.connection == "connecting" || update.receivedPendingNotifications == "false") {
-			console.log(color(`\n🌿Connecting...`, 'yellow'))
-		}
-		if (update.connection == "open" || update.receivedPendingNotifications == "true") {
-			console.log(color(` `,'magenta'))
-            console.log(color(`🌿Connected to => ` + JSON.stringify(XeonBotInc.user, null, 2), 'yellow'))
-			await delay(1999)
-            console.log(chalk.yellow(`\n\n               ${chalk.bold.blue(`[ ${botname} ]`)}\n\n`))
-            console.log(color(`< ================================================== >`, 'cyan'))
-	        console.log(color(`\n${themeemoji} YT CHANNEL: kenzo3146`,'magenta'))
-            console.log(color(`${themeemoji} GITHUB: toge12345 `,'magenta'))
-            console.log(color(`${themeemoji} INSTAGRAM: @lawliet.kfx `,'magenta'))
-            console.log(color(`${themeemoji} WA NUMBER: ${owner}`,'magenta'))
-            console.log(color(`${themeemoji} CREDIT: ${wm}\n`,'magenta'))
-            await delay(1000 * 2) 
-		}
+async function _quickTest() {
+    let test = await Promise.all([
+        spawn('ffmpeg'),
+        spawn('ffprobe'),
+        spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-filter_complex', 'color', '-frames:v', '1', '-f', 'webp', '-']),
+        spawn('convert'),
+        spawn('magick'),
+        spawn('gm'),
+        spawn('find', ['--version'])
+    ].map(p => {
+        return Promise.race([
+            new Promise(resolve => {
+                p.on('close', code => {
+                    resolve(code !== 127)
+                })
+            }),
+            new Promise(resolve => {
+                p.on('error', _ => resolve(false))
+            })
+        ])
+    }))
+    let [ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, find] = test
+    console.log(test)
+    let s = global.support = {
+        ffmpeg,
+        ffprobe,
+        ffmpegWebp,
+        convert,
+        magick,
+        gm,
+        find
+    }
+    // require('./lib/sticker').support = s
+    Object.freeze(global.support)
+
+    if (!s.ffmpeg) {
+        conn.logger.warn(`Please first install ffmpeg so that you can send videos`)
+    }
+
+    if (s.ffmpeg && !s.ffmpegWebp) {
+        conn.logger.warn('Sticker May Not Animate without libwebp in ffmpeg (--enable-ibwebp while compiling ffmpeg)')
+    }
+
+    if (!s.convert && !s.magick && !s.gm) {
+        conn.logger.warn('Features Sticker Probably Not Work Without imagemagick and libwebp in ffmpeg has not been installed (pkg install imagemagick)')
+    }
+
+}
+_quickTest()
+    .then(() => conn.logger.info('☑️ Quick Test Done , nama file session ~> creds.json'))
+    .catch(console.error)
 	
-} catch (err) {
-	  console.log('Error in Connection.update '+err)
-	  startXeonBotInc();
-	}
-})
-XeonBotInc.ev.on('creds.update', saveCreds)
-XeonBotInc.ev.on("messages.upsert",  () => { })
-//------------------------------------------------------
-
-//farewell/welcome
-    XeonBotInc.ev.on('group-participants.update', async (anu) => {
-    	if (global.welcome){
-console.log(anu)
-try {
-let metadata = await XeonBotInc.groupMetadata(anu.id)
-let participants = anu.participants
-for (let num of participants) {
-try {
-ppuser = await XeonBotInc.profilePictureUrl(num, 'image')
-} catch (err) {
-ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
-}
-try {
-ppgroup = await XeonBotInc.profilePictureUrl(anu.id, 'image')
-} catch (err) {
-ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
-}
-//welcome\\
-memb = metadata.participants.length
-XeonWlcm = await getBuffer(ppuser)
-XeonLft = await getBuffer(ppuser)
-                if (anu.action == 'add') {
-                const xeonbuffer = await getBuffer(ppuser)
-                let xeonName = num
-                const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-	            const xmembers = metadata.participants.length
-                xeonbody = `hello 🙌 welcome to our group 「  @${xeonName.split("@")[0]}  」
-
-our group is called ${metadata.subject}  thank you for respecting our rules`
-XeonBotInc.sendMessage(anu.id,
- { text: xeonbody,
- contextInfo:{
- mentionedJid:[num],
- "externalAdReply": {"showAdAttribution": true,
- "containsAutoReply": true,
- "title": ` ${global.botname}`,
-"body": `${ownername}`,
- "previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": XeonWlcm,
-"sourceUrl": `${wagc}`}}})
-                } else if (anu.action == 'remove') {
-                	const xeonbuffer = await getBuffer(ppuser)
-                    const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-	                const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-                	let xeonName = num
-                    const xeonmembers = metadata.participants.length
-                    xeonbody = `thank you for joining our group「  @${xeonName.split("@")[0]}  」 😞 sorry you are already leaving but thank you`
-XeonBotInc.sendMessage(anu.id,
- { text: xeonbody,
- contextInfo:{
- mentionedJid:[num],
- "externalAdReply": {"showAdAttribution": true,
- "containsAutoReply": true,
- "title": ` ${global.botname}`,
-"body": `${ownername}`,
- "previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": XeonLft,
-"sourceUrl": `${wagc}`}}})
-}
-}
-} catch (err) {
-console.log(err)
-}
-}
-})
-// Anti Call
-    XeonBotInc.ev.on('call', async (XeonPapa) => {
-    	if (global.anticall){
-    console.log(XeonPapa)
-    for (let XeonFucks of XeonPapa) {
-    if (XeonFucks.isGroup == false) {
-    if (XeonFucks.status == "offer") {
-    let XeonBlokMsg = await XeonBotInc.sendTextWithMentions(XeonFucks.from, `*${XeonBotInc.user.name}* can't receive ${XeonFucks.isVideo ? `video` : `voice` } call. Sorry @${XeonFucks.from.split('@')[0]} you will be blocked. If called accidentally please contact the owner to be unblocked !`)
-    XeonBotInc.sendContact(XeonFucks.from, owner, XeonBlokMsg)
-    await sleep(8000)
-    await XeonBotInc.updateBlockStatus(XeonFucks.from, "block")
-    }
-    }
-    }
-    }
-    })
-    //autostatus view
-        XeonBotInc.ev.on('messages.upsert', async chatUpdate => {
-        	if (global.antiswview){
-            mek = chatUpdate.messages[0]
-            if (mek.key && mek.key.remoteJid === 'status@broadcast') {
-            	await XeonBotInc.readMessages([mek.key]) }
-            }
-    })
-    //admin event
-    XeonBotInc.ev.on('group-participants.update', async (anu) => {
-    	if (global.adminevent){
-console.log(anu)
-try {
-let participants = anu.participants
-for (let num of participants) {
-try {
-ppuser = await XeonBotInc.profilePictureUrl(num, 'image')
-} catch (err) {
-ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
-}
-try {
-ppgroup = await XeonBotInc.profilePictureUrl(anu.id, 'image')
-} catch (err) {
-ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
-}
- if (anu.action == 'promote') {
-const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-let xeonName = num
-xeonbody = ` 𝗖𝗼𝗻𝗴𝗿𝗮𝘁𝘀🎉 @${xeonName.split("@")[0]}, you have been *promoted* to *admin* 🥳`
-   XeonBotInc.sendMessage(anu.id,
- { text: xeonbody,
- contextInfo:{
- mentionedJid:[num],
- "externalAdReply": {"showAdAttribution": true,
- "containsAutoReply": true,
- "title": ` ${global.botname}`,
-"body": `${ownername}`,
- "previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": XeonWlcm,
-"sourceUrl": `${wagc}`}}})
-} else if (anu.action == 'demote') {
-const xeontime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
-const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
-let xeonName = num
-xeonbody = `𝗢𝗼𝗽𝘀‼️ @${xeonName.split("@")[0]}, you have been *demoted* from *admin* 😬`
-XeonBotInc.sendMessage(anu.id,
- { text: xeonbody,
- contextInfo:{
- mentionedJid:[num],
- "externalAdReply": {"showAdAttribution": true,
- "containsAutoReply": true,
- "title": ` ${global.botname}`,
-"body": `${ownername}`,
- "previewType": "PHOTO",
-"thumbnailUrl": ``,
-"thumbnail": XeonLft,
-"sourceUrl": `${wagc}`}}})
-}
-}
-} catch (err) {
-console.log(err)
-}
-}
-})
-
-// detect group update
-		XeonBotInc.ev.on("groups.update", async (json) => {
-			if (global.groupevent) {
-			try {
-ppgroup = await XeonBotInc.profilePictureUrl(anu.id, 'image')
-} catch (err) {
-ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
-}
-			console.log(json)
-			const res = json[0]
-			if (res.announce == true) {
-				await sleep(2000)
-				XeonBotInc.sendMessage(res.id, {
-					text: `「 Group Settings Change 」\n\nGroup has been closed by admin, Now only admins can send messages !`,
-				})
-			} else if (res.announce == false) {
-				await sleep(2000)
-				XeonBotInc.sendMessage(res.id, {
-					text: `「 Group Settings Change 」\n\nThe group has been opened by admin, Now participants can send messages !`,
-				})
-			} else if (res.restrict == true) {
-				await sleep(2000)
-				XeonBotInc.sendMessage(res.id, {
-					text: `「 Group Settings Change 」\n\nGroup info has been restricted, Now only admin can edit group info !`,
-				})
-			} else if (res.restrict == false) {
-				await sleep(2000)
-				XeonBotInc.sendMessage(res.id, {
-					text: `「 Group Settings Change 」\n\nGroup info has been opened, Now participants can edit group info !`,
-				})
-			} else if(!res.desc == ''){
-				await sleep(2000)
-				XeonBotInc.sendMessage(res.id, { 
-					text: `「 Group Settings Change 」\n\n*Group description has been changed to*\n\n${res.desc}`,
-				})
-      } else {
-				await sleep(2000)
-				XeonBotInc.sendMessage(res.id, {
-					text: `「 Group Settings Change 」\n\n*Group name has been changed to*\n\n*${res.subject}*`,
-				})
-			} 
-			}
-		})
-            
-    XeonBotInc.ev.on('messages.upsert', async chatUpdate => {
-        //console.log(JSON.stringify(chatUpdate, undefined, 2))
-        try {
-            mek = chatUpdate.messages[0]
-            if (!mek.message) return
-            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-            if (mek.key && mek.key.remoteJid === 'status@broadcast') return
-            if (!XeonBotInc.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
-            if (mek.key.id.startsWith('toge') && mek.key.id.length === 16) return
-            if (mek.key.id.startsWith('BAE5')) return
-            m = smsg(XeonBotInc, mek, store)
-            require("./TOGE-MD")(XeonBotInc, m, chatUpdate, store)
-        } catch (err) {
-            console.log(err)
-        }
-    })
-
-   
-    XeonBotInc.decodeJid = (jid) => {
-        if (!jid) return jid
-        if (/:\d+@/gi.test(jid)) {
-            let decode = jidDecode(jid) || {}
-            return decode.user && decode.server && decode.user + '@' + decode.server || jid
-        } else return jid
-    }
-
-    XeonBotInc.ev.on('contacts.update', update => {
-        for (let contact of update) {
-            let id = XeonBotInc.decodeJid(contact.id)
-            if (store && store.contacts) store.contacts[id] = {
-                id,
-                name: contact.notify
-            }
-        }
-    })
-
-    XeonBotInc.getName = (jid, withoutContact = false) => {
-        id = XeonBotInc.decodeJid(jid)
-        withoutContact = XeonBotInc.withoutContact || withoutContact
-        let v
-        if (id.endsWith("@g.us")) return new Promise(async (resolve) => {
-            v = store.contacts[id] || {}
-            if (!(v.name || v.subject)) v = XeonBotInc.groupMetadata(id) || {}
-            resolve(v.name || v.subject || PhoneNumber('+' + id.replace('@s.whatsapp.net', '')).getNumber('international'))
-        })
-        else v = id === '0@s.whatsapp.net' ? {
-                id,
-                name: 'WhatsApp'
-            } : id === XeonBotInc.decodeJid(XeonBotInc.user.id) ?
-            XeonBotInc.user :
-            (store.contacts[id] || {})
-        return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
-    }
-
-XeonBotInc.sendContact = async (jid, kon, quoted = '', opts = {}) => {
-	let list = []
-	for (let i of kon) {
-	    list.push({
-	    	displayName: await XeonBotInc.getName(i),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await XeonBotInc.getName(i)}\nFN:${await XeonBotInc.getName(i)}\nitem1.TEL;waid=${i.split('@')[0]}:${i.split('@')[0]}\nitem1.X-ABLabel:Mobile\nEND:VCARD`
-	    })
-	}
-	XeonBotInc.sendMessage(jid, { contacts: { displayName: `${list.length} Contact`, contacts: list }, ...opts }, { quoted })
-    }
-
-    XeonBotInc.public = true
-
-    XeonBotInc.serializeM = (m) => smsg(XeonBotInc, m, store)
-
-    XeonBotInc.sendText = (jid, text, quoted = '', options) => XeonBotInc.sendMessage(jid, {
-        text: text,
-        ...options
-    }, {
-        quoted,
-        ...options
-    })
-    XeonBotInc.sendImage = async (jid, path, caption = '', quoted = '', options) => {
-        let buffer = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-        return await XeonBotInc.sendMessage(jid, {
-            image: buffer,
-            caption: caption,
-            ...options
-        }, {
-            quoted
-        })
-    }
-    XeonBotInc.sendTextWithMentions = async (jid, text, quoted, options = {}) => XeonBotInc.sendMessage(jid, {
-        text: text,
-        mentions: [...text.matchAll(/@(\d{0,16})/g)].map(v => v[1] + '@s.whatsapp.net'),
-        ...options
-    }, {
-        quoted
-    })
-    XeonBotInc.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
-let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-let buffer
-if (options && (options.packname || options.author)) {
-buffer = await writeExifImg(buff, options)
-} else {
-buffer = await imageToWebp(buff)
-}
-await XeonBotInc.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted })
-.then( response => {
-fs.unlinkSync(buffer)
-return response
-})
-}
-
-XeonBotInc.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
-let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
-let buffer
-if (options && (options.packname || options.author)) {
-buffer = await writeExifVid(buff, options)
-} else {
-buffer = await videoToWebp(buff)
-}
-await XeonBotInc.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted })
-return buffer
-}
-    XeonBotInc.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => {
-        let quoted = message.msg ? message.msg : message
-        let mime = (message.msg || message).mimetype || ''
-        let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
-        const stream = await downloadContentFromMessage(quoted, messageType)
-        let buffer = Buffer.from([])
-        for await (const chunk of stream) {
-            buffer = Buffer.concat([buffer, chunk])
-        }
-        let type = await FileType.fromBuffer(buffer)
-        trueFileName = attachExtension ? (filename + '.' + type.ext) : filename
-        // save to file
-        await fs.writeFileSync(trueFileName, buffer)
-        return trueFileName
-    }
-    
-    XeonBotInc.copyNForward = async (jid, message, forceForward = false, options = {}) => {
-let vtype
-if (options.readViewOnce) {
-message.message = message.message && message.message.ephemeralMessage && message.message.ephemeralMessage.message ? message.message.ephemeralMessage.message : (message.message || undefined)
-vtype = Object.keys(message.message.viewOnceMessage.message)[0]
-delete(message.message && message.message.ignore ? message.message.ignore : (message.message || undefined))
-delete message.message.viewOnceMessage.message[vtype].viewOnce
-message.message = {
-...message.message.viewOnceMessage.message
-}
-}
-let mtype = Object.keys(message.message)[0]
-let content = await generateForwardMessageContent(message, forceForward)
-let ctype = Object.keys(content)[0]
-let context = {}
-if (mtype != "conversation") context = message.message[mtype].contextInfo
-content[ctype].contextInfo = {
-...context,
-...content[ctype].contextInfo
-}
-const waMessage = await generateWAMessageFromContent(jid, content, options ? {
-...content[ctype],
-...options,
-...(options.contextInfo ? {
-contextInfo: {
-...content[ctype].contextInfo,
-...options.contextInfo
-}
-} : {})
-} : {})
-await XeonBotInc.relayMessage(jid, waMessage.message, { messageId:  waMessage.key.id })
-return waMessage
-}
-    
-    XeonBotInc.sendPoll = (jid, name = '', values = [], selectableCount = 1) => { return XeonBotInc.sendMessage(jid, { poll: { name, values, selectableCount }}) }
-
-XeonBotInc.parseMention = (text = '') => {
-return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
-}
-            
-    XeonBotInc.downloadMediaMessage = async (message) => {
-        let mime = (message.msg || message).mimetype || ''
-        let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
-        const stream = await downloadContentFromMessage(message, messageType)
-        let buffer = Buffer.from([])
-        for await (const chunk of stream) {
-            buffer = Buffer.concat([buffer, chunk])
-        }
-
-        return buffer
-    }
-    return XeonBotInc
-}
-
-startXeonBotInc()
-
-process.on('uncaughtException', function (err) {
-let e = String(err)
-if (e.includes("conflict")) return
-if (e.includes("Socket connection timeout")) return
-if (e.includes("not-authorized")) return
-if (e.includes("already-exists")) return
-if (e.includes("rate-overlimit")) return
-if (e.includes("Connection Closed")) return
-if (e.includes("Timed Out")) return
-if (e.includes("Value not found")) return
-console.log('Caught exception: ', err)
-})
