@@ -1,4 +1,21 @@
-language="nodejs"
-run="npm install && pm2 start index.js && pm2 save && pm2 logs"
-entrypoint = "index.js"
-hidden = [".config", "package-lock.json"]
+run = "npm start || yarn start || node ."
+# stop =  "npm stop || yarn stop"
+entrypoint = "settings.js"
+hidden = [".settings.js"]
+
+
+
+
+[unitTest]
+language = "nodejs"
+
+onBoot = "npm i || yarn"
+
+[nix]
+channel = "stable-23_05"
+
+[deployment]
+run = ["yarn","start"]
+deploymentTarget = "cloudrun"
+ignorePorts = false
+ 
