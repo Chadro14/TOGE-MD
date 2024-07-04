@@ -33,9 +33,7 @@
 
 1. ***Star⭐ The Repository Must***
 2. ***Click [FORK](https://github.com/toge012345/TOGE-MD/fork)***
-3. ***Pair-code :***
-    <br>
-<a href='https://xlicon-v3-web.onrender.com/pair' target="_blank"><img alt='PAIR-CODE' src='https://img.shields.io/badge/-PAIR-CODE-black?style=for-the-badge&logo=replit&logoColor=white'/></a>
+3. ***Pair-code :*** <a href='https://xlicon-v3-web.onrender.com/pair' target="_blank"><img alt='PAIR-CODE' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=replit&logoColor=white'/></a>
 
 ### `DEPLOY TO REPLIT`
 
