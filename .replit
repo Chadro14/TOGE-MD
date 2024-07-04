@@ -1,7 +1,7 @@
 hidden = [".config", "package-lock.json"]
 
-run="pm2 start lib/runner/index.js && pm2 save && pm2 logs"
-entrypoint = "lib/runner/index.js"
+run="pm2 start ./TOGE-MD.js && pm2 save && pm2 logs"
+entrypoint = "./TOGE-MD.js"
 [[hints]]
 
 regex = "Error \\[ERR_REQUIRE_ESM\\]"
