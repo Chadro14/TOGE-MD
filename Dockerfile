@@ -1,7 +1,7 @@
 FROM quay.io/teamolduser/docker
 
-COPY . /root/Anyav2
-WORKDIR /root/Anyav2
+COPY . /root/TOGE-MD
+WORKDIR /root/TOGE-MD
 RUN apt install ffmpeg
 RUN yarn install
 EXPOSE 3000
