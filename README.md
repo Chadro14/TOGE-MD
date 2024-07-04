@@ -30,24 +30,11 @@
 ◉ Audio/Video Editor Commands                   
 ◉ Others......***
 
-## `PAIR CODE`
+
 1. ***Star⭐ The Repository Must***
 2. ***Click [FORK](https://github.com/toge012345/TOGE-MD/fork)***
-3. ***Get Your [SESSION ID](https://xlicon-v3-web.onrender.com/pair)***
 
-##  `DEPLOYEMENT METHOD`
-
-#### DEPLOY TO HEROKU 
-
-1. If You don't have a account in Heroku. Create a account.
-    <br>
-<a href='https://signup.heroku.com/' target="_blank"><img alt='Heroku' src='https://img.shields.io/badge/-Create-black?style=for-the-badge&logo=heroku&logoColor=white'/></a>
-
-2. Now Deploy
-    <br>
-<a href='https://dashboard.heroku.com/new?template=https://github.com/toge012345/TOGE-MD/tree/master' target="_blank"><img alt='DEPLOY' src='https://img.shields.io/badge/-DEPLOY-black?style=for-the-badge&logo=heroku&logoColor=white'/></a>
-
-#### DEPLOY TO REPLIT
+### `DEPLOY TO REPLIT`
 
 1. If You don't have an account in Replit. Create a account.
     <br>
