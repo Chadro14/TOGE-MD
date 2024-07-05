@@ -115,8 +115,11 @@
       }
     }
   },
+  "message": {},
   "sticker": {},
   "others": {
     "vote": []
+  }
+    }
   }
 }
