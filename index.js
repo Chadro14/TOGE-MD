@@ -231,7 +231,7 @@ XeonLft = await getBuffer(ppuser)
                 const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 	            const xmembers = metadata.participants.length
-                xeonbody = ┏━━⍟
+                xeonbody = `┏━━⍟
 ┃
 ┃「 𝗛𝗶 👋 」
    @${xeonName.split("@")[0]} 
