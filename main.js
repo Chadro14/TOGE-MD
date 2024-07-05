@@ -1,4 +1,4 @@
-const { modul } = require('./module');
+const { modul } = require('./settings');
 const moment = require('moment-timezone');
 const { baileys, boom, chalk, fs, figlet, FileType, path, pino, process, PhoneNumber, axios, yargs, _ } = modul;
 const { Boom } = boom
