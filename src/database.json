@@ -1,6 +1,6 @@
 {
   "users": {
-    "918798308154@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "serialNumber": "0eae1af5145d445f4e7a69739aa2e971",
       "title": "Premium",
       "afkTime": -1,
@@ -28,18 +28,18 @@
       "afkTime": -1,
       "badword": 0,
       "afkReason": "",
-      "nick": "🦄드림 가이 Xeon",
+      "nick": "•.¸♡ 𝐓𝐎𝐆𝐄 𝐈𝐍𝐔𝐌𝐀𝐊𝐈 ♡¸.•",
       "premium": "true",
       "limit": 1000,
       "totalLimit": 0
     },
-    "916909433995@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "serialNumber": "23c1c18ebacbffbce24003815fcdd580",
       "title": "Premium",
       "afkTime": -1,
       "badword": 0,
       "afkReason": "",
-      "nick": "+91 69094 33995",
+      "nick": "+1 (303) 848-0418",
       "premium": "true",
       "limit": 1000,
       "totalLimit": 0
@@ -76,7 +76,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "919366316018@s.whatsapp.net": {
+    "9113038480418@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -94,7 +94,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "918798308154@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -112,7 +112,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "916909137213@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -130,7 +130,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "918787789781@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -148,7 +148,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "916909433995@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -184,7 +184,7 @@
       "antilink": false,
       "antilinkgc": false
     },
-    "918741060869@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "badword": false,
       "antiforeignnum": false,
       "antibot": false,
@@ -207,7 +207,7 @@
     "math": []
   },
   "settings": {
-    "918798308154@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "totalhit": 432,
       "totalError": 0,
       "online": false,
@@ -224,20 +224,20 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "🦄드림 가이 Xeon\n\n+916909137213"
+        "author": "•.¸♡ 𝐓𝐎𝐆𝐄 𝐈𝐍𝐔𝐌𝐀𝐊𝐈 ♡¸.•"
       },
       "about": {
         "bot": {
           "nick": "Oke",
-          "alias": "Cheems Bot MD V10"
+          "alias": "TOGE-MD"
         },
         "owner": {
-          "nick": "+91 69091 37213",
-          "alias": "916909137213"
+          "nick": "+1 (303) 848-0418",
+          "alias": "13038480418"
         }
       }
     },
-    "916909433995@s.whatsapp.net": {
+    "13038480418@s.whatsapp.net": {
       "totalhit": 1,
       "totalError": 0,
       "online": false,
@@ -254,16 +254,16 @@
       "autotype": false,
       "watermark": {
         "packname": "Sticker By",
-        "author": "🦄드림 가이 Xeon\n\n+916909137213"
+        "author": "•.¸♡ 𝐓𝐎𝐆𝐄 𝐈𝐍𝐔𝐌𝐀𝐊𝐈 ♡¸.•"
       },
       "about": {
         "bot": {
-          "nick": "+91 69094 33995",
-          "alias": "Cheems Bot MD V11"
+          "nick": "+1 (303) 848-0418",
+          "alias": "TOGE-MD"
         },
         "owner": {
-          "nick": "Joseph Son",
-          "alias": "916909137213"
+          "nick": "TOGE INUMAKI",
+          "alias": "13038480418"
         }
       }
     }
