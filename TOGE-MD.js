@@ -6693,7 +6693,7 @@ case 'blur':
 ┃✺ ${xprefix}bugmenu
 ┃✺ ${xprefix}othermenu
 ┗━━━━━━━━━━━━━━━⊛`
-if (typemenu === 'v4') {
+if (typemenu === 'v1') {
                     XeonBotInc.sendMessage(m.chat, {
                         image: fs.readFileSync('./TogeMedia/theme/togepic.jpg'),
                         caption: xmenu_oh
