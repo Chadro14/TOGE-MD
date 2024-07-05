@@ -42,12 +42,12 @@ settings: {},
 ...(global.db || {})
 }
 
-const owner = JSON.parse(fs.readFileSync('./database/owner.json'))
+const owner = JSON.parse(fs.readFileSync('./src/data/role/owner.json'))
 
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
-require('./XeonCheems8.js')
-nocache('../XeonCheems8.js', module => console.log(color('[ CHANGE ]', 'green'), color(`'${module}'`, 'green'), 'Updated'))
+require('./TOGE-MD.js')
+nocache('../TOGE-MD.js', module => console.log(color('[ CHANGE ]', 'green'), color(`'${module}'`, 'green'), 'Updated'))
 require('./index.js')
 nocache('../index.js', module => console.log(color('[ CHANGE ]', 'green'), color(`'${module}'`, 'green'), 'Updated'))
 
@@ -64,7 +64,7 @@ async function XeonBotIncBot() {
                 return msg.message || undefined
             }
             return {
-                conversation: "Cheems Bot Here"
+                conversation: "TOGE-MD Bot Here"
             }
         }
     })
@@ -231,16 +231,18 @@ XeonLft = await getBuffer(ppuser)
                 const xtime = moment.tz('Asia/Kolkata').format('HH:mm:ss')
 	            const xdate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
 	            const xmembers = metadata.participants.length
-                xeonbody = `┌─❖
-│「 𝗛𝗶 👋 」
-└┬❖ 「  @${xeonName.split("@")[0]}  」
-   │✑  𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 
-   │✑  ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xmembers}th
-   │✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
-   │✑ ${xtime} ${xdate}
-   └───────────────┈ ⳹`
+                xeonbody = ┏━━⍟
+┃
+┃「 𝗛𝗶 👋 」
+   @${xeonName.split("@")[0]} 
+
+   ┃✑  𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 
+   ┃✑  ${metadata.subject}
+   ┃✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
+   ┃✑ ${xmembers}th
+   ┃✑  𝗝𝗼𝗶𝗻𝗲𝗱 : 
+   ┃✑ ${xtime} ${xdate}
+   ┗━━━━━━━━━⊛`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
@@ -259,16 +261,17 @@ XeonBotInc.sendMessage(anu.id,
 	                const xeondate = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
                 	let xeonName = num
                     const xeonmembers = metadata.participants.length
-                    xeonbody = `┌─❖
-│「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
-└┬❖ 「 @${xeonName.split("@")[0]}  」
-   │✑  𝗟𝗲𝗳𝘁 
-   │✑ ${metadata.subject}
-   │✑  𝗠𝗲𝗺𝗯𝗲𝗿 : 
-   │✑ ${xeonmembers}th
-   │✑  𝗧𝗶𝗺𝗲 : 
-   │✑  ${xeontime} ${xeondate}
-   └───────────────┈ ⳹`
+                    xeonbody = `┏━━⍟
+┃
+┃「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
+   @${xeonName.split("@")[0]} 
+
+   ┃✑  𝗟𝗲𝗳𝘁 :
+   ┃✑  ${metadata.subject}
+   ┃✑ 𝗠𝗲𝗺𝗯𝗲𝗿 : ${xmembers}th
+   ┃✑  𝗧𝗶𝗺𝗲 : 
+   ┃✑ ${xtime} ${xdate}
+   ┗━━━━━━━━━⊛`
 XeonBotInc.sendMessage(anu.id,
  { text: xeonbody,
  contextInfo:{
