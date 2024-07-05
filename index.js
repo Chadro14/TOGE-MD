@@ -111,9 +111,9 @@ try{
 			await delay(1999)
             console.log(chalk.yellow(`\n\n               ${chalk.bold.blue(`[ ${botname} ]`)}\n\n`))
             console.log(color(`< ================================================== >`, 'cyan'))
-	        console.log(color(`\n${themeemoji} YT CHANNEL: Xeon`,'magenta'))
-            console.log(color(`${themeemoji} GITHUB: DGXeon `,'magenta'))
-            console.log(color(`${themeemoji} INSTAGRAM: @unicorn_xeon `,'magenta'))
+	        console.log(color(`\n${themeemoji} YT CHANNEL: kenzo3146`,'magenta'))
+            console.log(color(`${themeemoji} GITHUB: toge012345 `,'magenta'))
+            console.log(color(`${themeemoji} INSTAGRAM: @lawliet.kfx `,'magenta'))
             console.log(color(`${themeemoji} WA NUMBER: ${owner}`,'magenta'))
             console.log(color(`${themeemoji} CREDIT: ${wm}\n`,'magenta'))
 		}
@@ -158,7 +158,7 @@ await XeonBotInc.readMessages([kay.key]) }
 if (!XeonBotInc.public && !kay.key.fromMe && chatUpdate.type === 'notify') return
 if (kay.key.id.startsWith('BAE5') && kay.key.id.length === 16) return
 const m = smsg(XeonBotInc, kay, store)
-require('./XeonCheems8')(XeonBotInc, m, chatUpdate, store)
+require('./TOGE-MD.js')(XeonBotInc, m, chatUpdate, store)
 } catch (err) {
 console.log(err)}})
 
@@ -334,7 +334,7 @@ console.log(err)
             return msg?.message
         }
         return {
-            conversation: "Cheems Bot Here"
+            conversation: "TOGE-MD Bot Here"
         }
     }
     XeonBotInc.ev.on('messages.update', async chatUpdate => {
